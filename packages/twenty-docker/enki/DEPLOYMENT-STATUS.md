@@ -1,6 +1,16 @@
 # Enki release status — 2026-10-20
 
-Published at https://app.enki.now on 2026-10-20. The current production deployment is `dpl_78jjEcZehPB8BkKqy5G9kgNxQZ3t`, built from application source commit `d0108162`. The preceding release, `dpl_6Qh31Fjgi5EZD1XRsGyXJLTN5yJu` (`1709d676`), remains the rollback target. Native authentication, CRM writes/relations, S3 upload/read, bootstrap artifact checksums, SMTP, invitations, password-reset delivery and public desktop/mobile browser checks passed during the initial release. Its native admin health check reported database, Redis, worker, connected-account infrastructure and application as operational; no external mailbox has been connected.
+Published at https://app.enki.now on 2026-10-20. The current production deployment is `dpl_8zTieUTq1sqbVdHzw9LfNpCafM5Q`, with routing source commit `798b955e` and unchanged application artifacts from `d0108162`. The preceding release, `dpl_78jjEcZehPB8BkKqy5G9kgNxQZ3t`, remains the immediate rollback target. Native authentication, CRM writes/relations, S3 upload/read, bootstrap artifact checksums, SMTP, invitations, password-reset delivery and public desktop/mobile browser checks passed during the initial release. Its native admin health check reported database, Redis, worker, connected-account infrastructure and application as operational; no external mailbox has been connected.
+
+## Static delivery follow-up
+
+The compiled entry document preloads 513 JavaScript modules, previously served by the native container. `/assets/` and `/brand/` now use a dedicated static Vercel service. Native HTML, authentication, APIs, files and private worker access retain their existing handlers. No application code, database configuration or user credentials changed in this follow-up.
+
+- Four ingress checks passed, covering public asset routing, native document/data routes, private worker isolation and scoped immutable caching.
+- All 515 checked files (preloaded modules, entry script and email logo) matched local SHA-256 values on the candidate and public domain.
+- The public check saw 515 CDN hits, with 10 ms median and 41 ms p95 individual file response times. The complete eight-concurrent-request check took 1.225 seconds. These are automated asset-transfer measurements, not mobile page-load or cold-container benchmarks.
+- Health returned 200, unauthenticated CRM returned 403, and a missing asset returned 404. Public HTML remained `no-store`.
+- Public login rendered at a 390 × 844 viewport without JavaScript console errors and advanced to the password step. The authorized account lookup returned its existing workspace in 578 ms; no real account password was entered or changed.
 
 ## Access and email follow-up
 
