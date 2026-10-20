@@ -15,7 +15,7 @@ import { SignOutOnOtherTabSignOutEffect } from '@/auth/effect-components/SignOut
 import { CaptchaProvider } from '@/captcha/components/CaptchaProvider';
 import { RequestFreshCaptchaTokenEffect } from '@/captcha/components/RequestFreshCaptchaTokenEffect';
 import { CommandMenuConfirmationModalManager } from '@/command-menu-item/confirmation-modal/components/CommandMenuConfirmationModalManager';
-import { CommandRunner } from '@/command-menu-item/engine-command/components/CommandRunner';
+import { DeferredCommandRunner } from '@/command-menu-item/engine-command/components/DeferredCommandRunner';
 import { MAIN_CONTEXT_STORE_INSTANCE_ID } from '@/context-store/constants/MainContextStoreInstanceId';
 import { ContextStoreComponentInstanceContext } from '@/context-store/states/contexts/ContextStoreComponentInstanceContext';
 import { ErrorMessageEffect } from '@/error-handler/components/ErrorMessageEffect';
@@ -83,7 +83,7 @@ export const WorkspaceAppProviders = () => {
                                 <Outlet />
                                 <GlobalFilePreviewModal />
                                 <CommandMenuConfirmationModalManager />
-                                <CommandRunner />
+                                <DeferredCommandRunner />
                               </RecordCreationFormProvider>
                             </CoreRecordReferenceFieldsContext.Provider>
                           </StrictMode>

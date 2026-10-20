@@ -2,7 +2,7 @@ import { styled } from '@linaria/react';
 import { Trans, useLingui } from '@lingui/react/macro';
 
 import { useWorkspaceBypass } from '@/auth/sign-in-up/hooks/useWorkspaceBypass';
-import { getTwentyWebsiteUrl } from '@/auth/utils/getTwentyWebsiteUrl';
+import { getEnkiWebsiteUrl } from '@/auth/utils/getEnkiWebsiteUrl';
 import { useIsCurrentLocationOnAWorkspace } from '@/domain-manager/hooks/useIsCurrentLocationOnAWorkspace';
 import { ONBOARDING_CONTENT_BLOCK_WIDTH } from '@/onboarding/constants/OnboardingContentBlockWidth';
 import { themeCssVariables } from 'twenty-ui/theme';
@@ -73,30 +73,30 @@ export const FooterNote = ({
   if (!isOnAWorkspace) {
     return (
       <StyledCopyContainer>
-        <Trans>By using Twenty, you agree to the</Trans>{' '}
+        <Trans>Conheça a plataforma em</Trans>{' '}
         <a
-          href={getTwentyWebsiteUrl(i18n.locale, 'terms')}
+          href={getEnkiWebsiteUrl(i18n.locale, 'terms')}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Trans>Terms of Service</Trans>
+          <Trans>Sobre a Enki</Trans>
         </a>{' '}
         <Trans>and</Trans>{' '}
         {secondaryAgreement === 'dataProcessingAgreement' ? (
           <a
-            href="https://twenty.com/legal/dpa"
+            href="https://docs.enki.now/privacidade"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Trans>Data Processing Agreement</Trans>
+            <Trans>Tratamento de dados</Trans>
           </a>
         ) : (
           <a
-            href={getTwentyWebsiteUrl(i18n.locale, 'privacy-policy')}
+            href={getEnkiWebsiteUrl(i18n.locale, 'privacy-policy')}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Trans>Privacy Policy</Trans>
+            <Trans>Privacidade e dados</Trans>
           </a>
         )}
         .
@@ -115,19 +115,19 @@ export const FooterNote = ({
         </>
       )}
       <a
-        href={getTwentyWebsiteUrl(i18n.locale, 'privacy-policy')}
+        href={getEnkiWebsiteUrl(i18n.locale, 'privacy-policy')}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Trans>Privacy Policy</Trans>
+        <Trans>Privacidade e dados</Trans>
       </a>
       <StyledSeparator>•</StyledSeparator>
       <a
-        href={getTwentyWebsiteUrl(i18n.locale, 'terms')}
+        href={getEnkiWebsiteUrl(i18n.locale, 'terms')}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Trans>Terms of Service</Trans>
+        <Trans>Sobre a Enki</Trans>
       </a>
     </StyledLinksContainer>
   );

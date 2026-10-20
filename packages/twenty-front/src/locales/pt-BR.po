@@ -1527,8 +1527,8 @@ msgstr "O acesso a {objectLabelPlural} é definido por funções, não registro 
 
 #. js-lingui-id: rkbqAv
 #: src/modules/settings/mcp/utils/mcpSetup.ts
-msgid "Access your Twenty workspace through MCP"
-msgstr "Acesse seu espaço de trabalho da Twenty por meio do MCP"
+msgid "Access your Enki workspace through MCP"
+msgstr "Acesse seu espaço de trabalho da Enki por meio do MCP"
 
 #. js-lingui-id: CrjDqe
 #: src/pages/auth/Authorize.tsx
@@ -2244,38 +2244,38 @@ msgstr "Adicionar colegas de equipe"
 
 #. js-lingui-id: FKGcEL
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Add the Twenty MCP server as a remote context server in Zed."
-msgstr "Adicione o servidor Twenty MCP como um servidor de contexto remoto no Zed."
+msgid "Add the Enki MCP server as a remote context server in Zed."
+msgstr "Adicione o servidor Enki MCP como um servidor de contexto remoto no Zed."
 
 #. js-lingui-id: iA2nHX
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Add the Twenty MCP server from Augment Code settings."
-msgstr "Adicione o servidor Twenty MCP nas configurações do Augment Code."
+msgid "Add the Enki MCP server from Augment Code settings."
+msgstr "Adicione o servidor Enki MCP nas configurações do Augment Code."
 
 #. js-lingui-id: l+NzAk
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Add the Twenty MCP server from Raycast's MCP commands or settings."
-msgstr "Adicione o servidor Twenty MCP pelos comandos MCP ou pelas configurações do Raycast."
+msgid "Add the Enki MCP server from Raycast's MCP commands or settings."
+msgstr "Adicione o servidor Enki MCP pelos comandos MCP ou pelas configurações do Raycast."
 
 #. js-lingui-id: j6G/yI
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Add the Twenty MCP server in Gemini CLI settings."
-msgstr "Adicione o servidor Twenty MCP nas configurações do Gemini CLI."
+msgid "Add the Enki MCP server in Gemini CLI settings."
+msgstr "Adicione o servidor Enki MCP nas configurações do Gemini CLI."
 
 #. js-lingui-id: /OyhlM
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Add the Twenty MCP server to your LibreChat configuration file."
-msgstr "Adicione o servidor Twenty MCP ao seu arquivo de configuração do LibreChat."
+msgid "Add the Enki MCP server to your LibreChat configuration file."
+msgstr "Adicione o servidor Enki MCP ao seu arquivo de configuração do LibreChat."
 
 #. js-lingui-id: K0DXoj
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Add the Twenty remote server with LM Studio's install link."
-msgstr "Adicione o servidor remoto Twenty com o link de instalação do LM Studio."
+msgid "Add the Enki remote server with LM Studio's install link."
+msgstr "Adicione o servidor remoto Enki com o link de instalação do LM Studio."
 
 #. js-lingui-id: BTFMKE
 #: src/pages/settings/communications/SettingsWorkspaceCommunicationGroupChannelDetail.tsx
-msgid "Add these records at your DNS provider. Twenty checks them automatically."
-msgstr "Adicione estes registros no seu provedor de DNS. O Twenty os verifica automaticamente."
+msgid "Add these records at your DNS provider. Enki checks them automatically."
+msgstr "Adicione estes registros no seu provedor de DNS. O Enki os verifica automaticamente."
 
 #. js-lingui-id: 5+ttxv
 #: src/modules/settings/accounts/components/SettingsAccountsBlocklistInput.tsx
@@ -2300,8 +2300,8 @@ msgstr "Adicionar tópico"
 
 #. js-lingui-id: 4D/zWv
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Add Twenty as a Streamable HTTP extension in Goose."
-msgstr "Adicione Twenty como uma extensão HTTP Streamable no Goose."
+msgid "Add Enki as a Streamable HTTP extension in Goose."
+msgstr "Adicione Enki como uma extensão HTTP Streamable no Goose."
 
 #. js-lingui-id: XnwceV
 #: src/pages/settings/applications/components/SettingsApplicationRegistrationRedirectURIsInput.tsx
@@ -4201,8 +4201,8 @@ msgstr "Instalar este app automaticamente em todo novo espaço de trabalho criad
 
 #. js-lingui-id: MHsVk5
 #: src/pages/settings/ai/components/SettingsAiModelTiersPreview.tsx
-msgid "Automatically selected by Twenty for this mode."
-msgstr "Selecionado automaticamente pelo Twenty para este modo."
+msgid "Automatically selected by Enki for this mode."
+msgstr "Selecionado automaticamente pelo Enki para este modo."
 
 #. js-lingui-id: XFGV21
 #: src/pages/settings/applications/tabs/SettingsApplicationAutoUpdateSection.tsx
@@ -4429,8 +4429,8 @@ msgstr "Período de cobrança"
 
 #. js-lingui-id: xF/NXI
 #: src/modules/settings/billing/hooks/useBillingPortalSession.ts
-msgid "Billing portal session error. Please retry or contact Twenty team"
-msgstr "Erro na sessão do portal de cobrança. Tente novamente ou entre em contato com a equipe Twenty"
+msgid "Billing portal session error. Please retry or contact Enki team"
+msgstr "Erro na sessão do portal de cobrança. Tente novamente ou entre em contato com a equipe Enki"
 
 #. js-lingui-id: H++SIW
 #: src/modules/settings/billing/hooks/useBillingSubscriptionChangeWording.ts
@@ -4702,8 +4702,8 @@ msgstr "por {trimmedAuthor}"
 
 #. js-lingui-id: 8Pfllj
 #: src/modules/auth/sign-in-up/components/FooterNote.tsx
-msgid "By using Twenty, you agree to the"
-msgstr "Ao usar o Twenty, você concorda com os"
+msgid "By using Enki, you agree to the"
+msgstr "Ao usar o Enki, você concorda com os"
 
 #. js-lingui-id: 7l+dLC
 #: src/modules/marketplace/constants/PermissionFlagSummaryConfigs.ts
@@ -5348,8 +5348,8 @@ msgstr "Verificado apenas quando o registro ao qual esta regra pertence é salvo
 #. js-lingui-id: SxwQE8
 #: src/modules/settings/billing/hooks/useHandleCheckoutSession.ts
 #: src/modules/settings/billing/hooks/useHandleCheckoutSession.ts
-msgid "Checkout session error. Please retry or contact Twenty team"
-msgstr "Erro na sessão de checkout. Por favor, tente novamente ou contate a equipe Twenty"
+msgid "Checkout session error. Please retry or contact Enki team"
+msgstr "Erro na sessão de checkout. Por favor, tente novamente ou contate a equipe Enki"
 
 #. js-lingui-id: SviKkE
 #: src/modules/localization/hooks/useLocaleOptions.ts
@@ -6237,13 +6237,13 @@ msgstr "Configure o servidor remoto nas configurações MCP do Amazon Q Develope
 
 #. js-lingui-id: g1/8jH
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Configure the Twenty MCP server manually in Cascade."
-msgstr "Configure manualmente o servidor MCP do Twenty no Cascade."
+msgid "Configure the Enki MCP server manually in Cascade."
+msgstr "Configure manualmente o servidor MCP do Enki no Cascade."
 
 #. js-lingui-id: XiyvRh
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Configure the Twenty MCP server manually in Cline."
-msgstr "Configure manualmente o servidor MCP do Twenty no Cline."
+msgid "Configure the Enki MCP server manually in Cline."
+msgstr "Configure manualmente o servidor MCP do Enki no Cline."
 
 #. js-lingui-id: qA9AGQ
 #: src/modules/settings/domains/components/SettingsDomainRecords.tsx
@@ -6999,8 +6999,8 @@ msgstr "Contar por"
 
 #. js-lingui-id: EEqRLn
 #: src/modules/settings/workspace/components/ClickTrackingSwitch.tsx
-msgid "Count clicks by routing campaign links through Twenty before the original page."
-msgstr "Conte os cliques direcionando os links de campanha pelo Twenty antes da página original."
+msgid "Count clicks by routing campaign links through Enki before the original page."
+msgstr "Conte os cliques direcionando os links de campanha pelo Enki antes da página original."
 
 #. js-lingui-id: vQJINq
 #: src/modules/object-record/record-board/record-board-column/utils/getAggregateOperationLabel.ts
@@ -10547,8 +10547,8 @@ msgstr "Erro ao cancelar a alternância de plano."
 
 #. js-lingui-id: QmR+2U
 #: src/modules/settings/billing/hooks/useEndSubscriptionTrialPeriod.ts
-msgid "Error while ending trial period. Please contact Twenty team."
-msgstr "Erro ao encerrar o período de avaliação. Por favor, entre em contato com a equipe Twenty."
+msgid "Error while ending trial period. Please contact Enki team."
+msgstr "Erro ao encerrar o período de avaliação. Por favor, entre em contato com a equipe Enki."
 
 #. js-lingui-id: 5g78zo
 #: src/pages/settings/members/SettingsWorkspaceMember.tsx
@@ -13001,8 +13001,8 @@ msgstr "Citação destacada"
 
 #. js-lingui-id: 1ETc0T
 #: src/pages/settings/community/SettingsCommunity.tsx
-msgid "Hire a partner to help you implement and customize Twenty."
-msgstr "Contrate um parceiro para ajudar você a implementar e personalizar o Twenty."
+msgid "Hire a partner to help you implement and customize Enki."
+msgstr "Contrate um parceiro para ajudar você a implementar e personalizar o Enki."
 
 #. js-lingui-id: i0qMbr
 #: src/modules/navigation/hooks/useMobileNavigationBarItems.ts
@@ -16139,8 +16139,8 @@ msgstr "O modelo é obrigatório"
 
 #. js-lingui-id: iaurWj
 #: src/pages/settings/ai/components/SettingsAiModelsTab.tsx
-msgid "Model used when you chat with Twenty"
-msgstr "Modelo usado quando você conversa com o Twenty"
+msgid "Model used when you chat with Enki"
+msgstr "Modelo usado quando você conversa com o Enki"
 
 #. js-lingui-id: //nm2/
 #: src/pages/settings/admin-panel/SettingsAdminAiProviderDetail.tsx
@@ -18511,8 +18511,8 @@ msgstr "Abrir chats em"
 
 #. js-lingui-id: n0vVgf
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Open Claude with the Twenty connector name and MCP URL prefilled."
-msgstr "Abra o Claude com o nome do conector Twenty e a URL MCP pré-preenchidos."
+msgid "Open Claude with the Enki connector name and MCP URL prefilled."
+msgstr "Abra o Claude com o nome do conector Enki e a URL MCP pré-preenchidos."
 
 #. js-lingui-id: uIKeEf
 #: src/modules/workflow/workflow-steps/workflow-actions/ai-agent-action/components/WorkflowRunStepAiAgentConversationButton.tsx
@@ -18521,8 +18521,8 @@ msgstr "Abrir conversa"
 
 #. js-lingui-id: +n2jpB
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Open Cursor's MCP installer with the Twenty remote server config."
-msgstr "Abra o instalador MCP do Cursor com a configuração de servidor remoto do Twenty."
+msgid "Open Cursor's MCP installer with the Enki remote server config."
+msgstr "Abra o instalador MCP do Cursor com a configuração de servidor remoto do Enki."
 
 #. js-lingui-id: pZZH4Q
 #: src/modules/auth/sign-in-up/components/EmailVerificationSent.tsx
@@ -18602,8 +18602,8 @@ msgstr "Abrir registros em uma página dedicada"
 
 #. js-lingui-id: q170S2
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Open Replit with the Twenty remote server config."
-msgstr "Abra o Replit com a configuração de servidor remoto do Twenty."
+msgid "Open Replit with the Enki remote server config."
+msgstr "Abra o Replit com a configuração de servidor remoto do Enki."
 
 #. js-lingui-id: d8DZWS
 #: src/modules/keyboard-shortcut-menu/constants/KeyboardShortcutsGeneral.ts
@@ -18627,8 +18627,8 @@ msgstr "Abrir painel lateral"
 
 #. js-lingui-id: sBd/cl
 #: src/modules/settings/mcp/utils/buildMcpSetupCategories.tsx
-msgid "Open Twenty's official ChatGPT integration for your workspace."
-msgstr "Abra a integração oficial do ChatGPT do Twenty para o seu espaço de trabalho."
+msgid "Open Enki's official ChatGPT integration for your workspace."
+msgstr "Abra a integração oficial do ChatGPT do Enki para o seu espaço de trabalho."
 
 #. js-lingui-id: tirDue
 #: src/modules/log-console/constants/LogConsoleSources.tsx
@@ -19074,8 +19074,8 @@ msgstr "Nome da página"
 
 #. js-lingui-id: NRvxzv
 #: src/pages/not-found/NotFound.tsx
-msgid "Page Not Found | Twenty"
-msgstr "Página não encontrada | Twenty"
+msgid "Page Not Found | Enki"
+msgstr "Página não encontrada | Enki"
 
 #. js-lingui-id: QbrUIo
 #: src/modules/log-console/constants/LogConsoleSources.tsx
@@ -24289,8 +24289,8 @@ msgstr "Assinatura ativada."
 #: src/modules/settings/billing/components/AddPaymentMethodForm.tsx
 #: src/modules/settings/billing/hooks/useSubmitSubscriptionPayment.ts
 #: src/modules/settings/billing/hooks/useSubmitSubscriptionPayment.ts
-msgid "Subscription error. Please retry or contact Twenty team"
-msgstr "Erro de assinatura. Por favor, tente novamente ou contate a equipe Twenty"
+msgid "Subscription error. Please retry or contact Enki team"
+msgstr "Erro de assinatura. Por favor, tente novamente ou contate a equipe Enki"
 
 #. js-lingui-id: kSY/ji
 #: src/modules/settings/billing/hooks/useApplyBillingSubscriptionChange.ts
@@ -24829,11 +24829,11 @@ msgstr "A região da AWS para o Bedrock"
 #. js-lingui-id: HP7per
 #: src/modules/applications/utils/getStandardApplicationDescription.ts
 msgid ""
-"The base data model every Twenty workspace runs on.\n"
+"The base data model every Enki workspace runs on.\n"
 "\n"
 "#### What \"foundation\" means\n"
 "\n"
-"Every Twenty workspace starts with this set of objects. They define the shape of your CRM, including relationships, activity, and reporting. Everything else, including marketplace apps, AI agents, and custom objects, plugs into them.\n"
+"Every Enki workspace starts with this set of objects. They define the shape of your CRM, including relationships, activity, and reporting. Everything else, including marketplace apps, AI agents, and custom objects, plugs into them.\n"
 "\n"
 "#### Included objects\n"
 "- **People & Companies**: contact and account records\n"
@@ -24841,11 +24841,11 @@ msgid ""
 "- **Notes & Tasks**: activity and follow-ups\n"
 "- **Workflows & Dashboards**: automation and reporting\n"
 "\n"
-"Remove this app and the rest of Twenty has nothing to hang off.\n"
+"Remove this app and the rest of Enki has nothing to hang off.\n"
 "\n"
 "#### Build your own app\n"
 "\n"
-"Extend Twenty with your own objects, fields, logic functions, or AI skills. Scaffold a new app in one command:\n"
+"Extend Enki with your own objects, fields, logic functions, or AI skills. Scaffold a new app in one command:\n"
 "\n"
 "```bash\n"
 "npx create-twenty-app@latest my-twenty-app\n"
@@ -24860,11 +24860,11 @@ msgid ""
 "\n"
 "See the [Getting Started guide](https://twenty.com/developers/extend/apps/getting-started) for the full walkthrough, and [Building Apps](https://twenty.com/developers/extend/apps/building) for the `defineApplication` / `defineEntity` APIs."
 msgstr ""
-"O modelo de dados base sobre o qual todo espaço de trabalho do Twenty funciona.\n"
+"O modelo de dados base sobre o qual todo espaço de trabalho do Enki funciona.\n"
 "\n"
 "#### O que \"base\" significa\n"
 "\n"
-"Todo espaço de trabalho do Twenty começa com este conjunto de objetos. Eles definem a forma do seu CRM, incluindo relacionamentos, atividades e relatórios. Todo o restante, incluindo apps do marketplace, agentes de IA e objetos personalizados, se conecta a eles.\n"
+"Todo espaço de trabalho do Enki começa com este conjunto de objetos. Eles definem a forma do seu CRM, incluindo relacionamentos, atividades e relatórios. Todo o restante, incluindo apps do marketplace, agentes de IA e objetos personalizados, se conecta a eles.\n"
 "\n"
 "#### Objetos incluídos\n"
 "- **Pessoas e Empresas**: registros de contatos e de contas\n"
@@ -24872,11 +24872,11 @@ msgstr ""
 "- **Notas e Tarefas**: atividades e acompanhamentos\n"
 "- **Fluxos de trabalho e Painéis**: automação e relatórios\n"
 "\n"
-"Remova este app e o restante do Twenty não terá em que se apoiar.\n"
+"Remova este app e o restante do Enki não terá em que se apoiar.\n"
 "\n"
 "#### Crie seu próprio app\n"
 "\n"
-"Estenda o Twenty com seus próprios objetos, campos, funções lógicas ou habilidades de IA. Crie a estrutura de um novo app com um único comando:\n"
+"Estenda o Enki com seus próprios objetos, campos, funções lógicas ou habilidades de IA. Crie a estrutura de um novo app com um único comando:\n"
 "\n"
 "```bash\n"
 "npx create-twenty-app@latest my-twenty-app\n"
@@ -25348,8 +25348,8 @@ msgstr "Este aplicativo não está instalado neste espaço de trabalho. Ele pode
 #. js-lingui-id: 5j3WfU
 #: src/modules/marketplace/components/SettingsApplicationInstallPermissionValidationModal.tsx
 #: src/pages/settings/applications/SettingsAvailableApplicationDetails.tsx
-msgid "This application is not vetted by Twenty. Use at your own risk."
-msgstr "Este aplicativo não foi verificado pela Twenty. Use por sua conta e risco."
+msgid "This application is not vetted by Enki. Use at your own risk."
+msgstr "Este aplicativo não foi verificado pela Enki. Use por sua conta e risco."
 
 #. js-lingui-id: X7w5n6
 #: src/pages/settings/applications/tabs/SettingsApplicationRegistrationDistributionTab.tsx
@@ -26330,23 +26330,23 @@ msgstr "Turquesa"
 
 #. js-lingui-id: 8pmRvi
 #: src/pages/onboarding/SyncEmails.tsx
-msgid "Twenty adds the people you email and meet, and keeps them up to date without manual data entry."
-msgstr "O Twenty adiciona as pessoas para quem você envia e-mails e com quem se reúne, e as mantém atualizadas sem entrada manual de dados."
+msgid "Enki adds the people you email and meet, and keeps them up to date without manual data entry."
+msgstr "O Enki adiciona as pessoas para quem você envia e-mails e com quem se reúne, e as mantém atualizadas sem entrada manual de dados."
 
 #. js-lingui-id: JnaRPe
 #: src/modules/spreadsheet-import/steps/components/MatchColumnsStep/components/ColumnGrid.tsx
-msgid "Twenty fields"
-msgstr "Campos do Twenty"
+msgid "Enki fields"
+msgstr "Campos do Enki"
 
 #. js-lingui-id: pNo8xt
 #: src/pages/settings/ai/components/SettingsAiModelsTab.tsx
-msgid "Twenty fills each level with the best model that meets your requirements"
-msgstr "Twenty preenche cada nível com o melhor modelo que atende aos seus requisitos"
+msgid "Enki fills each level with the best model that meets your requirements"
+msgstr "Enki preenche cada nível com o melhor modelo que atende aos seus requisitos"
 
 #. js-lingui-id: qUadjH
 #: src/modules/onboarding/components/OnboardingInviteTeamSkipDialog.tsx
-msgid "Twenty works better with your team"
-msgstr "O Twenty funciona melhor com sua equipe"
+msgid "Enki works better with your team"
+msgstr "O Enki funciona melhor com sua equipe"
 
 #. js-lingui-id: YIjS4q
 #: src/modules/ai/components/SettingsAgentModelCapabilities.tsx
@@ -28388,8 +28388,8 @@ msgstr "semanas"
 
 #. js-lingui-id: nTuObL
 #: src/pages/auth/SignInUp.tsx
-msgid "Welcome to Twenty"
-msgstr "Bem-vindo ao Twenty"
+msgid "Welcome to Enki"
+msgstr "Bem-vindo ao Enki"
 
 #. js-lingui-id: t8ZvkC
 #: src/modules/onboarding/constants/WelcomeTitleMessage.ts

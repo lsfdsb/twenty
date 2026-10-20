@@ -292,7 +292,7 @@ export const WorkflowEditActionFormBuilder = ({
                   type="button"
                   onClick={() =>
                     openUrlInNewTab(
-                      'https://docs.twenty.com/user-guide/workflows/capabilities/workflow-actions#form',
+                      'https://docs.enki.now/automacoes/acoes#formulario',
                     )
                   }
                 >{t`Learn more`}</Callout.Action>

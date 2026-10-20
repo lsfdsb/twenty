@@ -17,10 +17,20 @@ import { OnboardingStepPageLoader } from '@/onboarding/components/OnboardingStep
 import { OnboardingTransitionOutlet } from '@/onboarding/components/OnboardingTransitionOutlet';
 import { AuthFlowLayout } from '@/ui/layout/page/components/AuthFlowLayout';
 import { BlankLayout } from '@/ui/layout/page/components/BlankLayout';
-import { DefaultLayout } from '@/app/components/DefaultLayout';
-import { MainAppLayoutWithSidePanel } from '@/app/components/MainAppLayoutWithSidePanel';
 import { Verify } from '~/pages/onboarding/Verify';
 import { lazyWithPreload } from '~/utils/lazyWithPreload';
+
+const DefaultLayout = lazy(() =>
+  import('@/app/components/DefaultLayout').then((module) => ({
+    default: module.DefaultLayout,
+  })),
+);
+
+const MainAppLayoutWithSidePanel = lazy(() =>
+  import('@/app/components/MainAppLayoutWithSidePanel').then((module) => ({
+    default: module.MainAppLayoutWithSidePanel,
+  })),
+);
 
 const SignInUp = lazy(() =>
   import('~/pages/auth/SignInUp').then((module) => ({
@@ -119,10 +129,18 @@ const createWorkspaceAppRouter = ({
               element: <MinimalMetadataGate />,
               children: [
                 {
-                  element: <DefaultLayout />,
+                  element: (
+                    <LazyRoute fallback={<OnboardingPageLoader />}>
+                      <DefaultLayout />
+                    </LazyRoute>
+                  ),
                   children: [
                     {
-                      element: <MainAppLayoutWithSidePanel />,
+                      element: (
+                        <LazyRoute fallback={<OnboardingPageLoader />}>
+                          <MainAppLayoutWithSidePanel />
+                        </LazyRoute>
+                      ),
                       children: getWorkspaceRouteObjectsForSurface(
                         workspaceRouteObjects,
                         'main',

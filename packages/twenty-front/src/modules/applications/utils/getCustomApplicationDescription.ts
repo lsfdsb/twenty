@@ -20,7 +20,7 @@ If you are shaping one workspace for one business, keep it here. If you are buil
 Scaffold a new app in one command:
 
 \`\`\`bash
-npx create-twenty-app@latest my-twenty-app
+npx create-twenty-app@latest my-enki-app
 \`\`\`
 
-See the [Getting Started guide](https://twenty.com/developers/extend/apps/getting-started) for the full walkthrough, and [Building Apps](https://twenty.com/developers/extend/apps/building) for the \`defineApplication\` / \`defineEntity\` APIs.`;
+See the [Getting Started guide](https://docs.enki.now/integracoes/aplicativos) for the full walkthrough, and [Building Apps](https://docs.enki.now/integracoes/aplicativos) for the \`defineApplication\` / \`defineEntity\` APIs.`;

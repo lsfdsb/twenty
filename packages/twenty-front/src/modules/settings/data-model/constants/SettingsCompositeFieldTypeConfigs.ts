@@ -124,20 +124,20 @@ export const SETTINGS_COMPOSITE_FIELD_TYPE_CONFIGS = {
     ],
     exampleValues: doNotTranslate([
       {
-        primaryEmail: 'tim@twenty.com',
+        primaryEmail: 'tim@empresa.example',
         additionalEmails: [
-          'tim@twenty.com',
-          'timapple@twenty.com',
-          'johnappletim@twenty.com',
+          'tim@empresa.example',
+          'timapple@empresa.example',
+          'johnappletim@empresa.example',
         ],
       },
       {
-        primaryEmail: 'jane@twenty.com',
-        additionalEmails: ['jane@twenty.com', 'jane.doe@twenty.com'],
+        primaryEmail: 'jane@empresa.example',
+        additionalEmails: ['jane@empresa.example', 'jane.doe@empresa.example'],
       },
       {
-        primaryEmail: 'john@twenty.com',
-        additionalEmails: ['john.doe@twenty.com'],
+        primaryEmail: 'john@empresa.example',
+        additionalEmails: ['john.doe@empresa.example'],
       },
     ]),
     category: 'Basic',
@@ -182,14 +182,14 @@ export const SETTINGS_COMPOSITE_FIELD_TYPE_CONFIGS = {
     ],
     exampleValues: doNotTranslate([
       {
-        primaryLinkUrl: 'twenty.com',
+        primaryLinkUrl: 'enki.now',
         primaryLinkLabel: '',
-        secondaryLinks: [{ url: 'twenty.com', label: 'Twenty' }],
+        secondaryLinks: [{ url: 'enki.now', label: 'Enki' }],
       },
       {
         primaryLinkUrl: 'github.com/twentyhq/twenty',
-        primaryLinkLabel: 'Twenty Repo',
-        secondaryLinks: [{ url: 'twenty.com', label: '' }],
+        primaryLinkLabel: 'Documentação Enki',
+        secondaryLinks: [{ url: 'enki.now', label: '' }],
       },
       {
         primaryLinkUrl: 'react.dev',

@@ -15,9 +15,9 @@ const StyledHero = styled.div`
   background: ${themeCssVariables.background.tertiary};
   border: 1px solid ${themeCssVariables.border.color.medium};
   border-radius: ${themeCssVariables.border.radius.lg};
+  overflow: hidden;
   padding: ${themeCssVariables.spacing[8]};
   position: relative;
-  overflow: hidden;
 
   &::after {
     background: ${themeCssVariables.accent.accent9};
@@ -31,9 +31,9 @@ const StyledHero = styled.div`
 
   img {
     height: 40px;
-    width: 124px;
     object-fit: contain;
     object-position: left;
+    width: 124px;
   }
   h1 {
     font-family: var(--enki-font-display);
@@ -116,7 +116,7 @@ export const SettingsCommunity = () => (
             title={t({ id: 'Conheça a Enki', message: 'Conheça a Enki' })}
           />
           <SettingsCard
-            href="https://docs.twenty.com/user-guide/data-model/overview"
+            href="https://docs.enki.now/modelo-de-dados"
             Icon={<IconBook size={20} />}
             title={t({ id: 'Guia do CRM', message: 'Guia do CRM' })}
           />
@@ -126,13 +126,13 @@ export const SettingsCommunity = () => (
         <Section.Header
           title={t({ id: 'Uma base aberta', message: 'Uma base aberta' })}
           description={t({
-            id: 'A camada de CRM da Enki é construída sobre o Twenty. Acompanhe o código, as licenças e as contribuições do projeto.',
+            id: 'Consulte o código-fonte, as licenças e os créditos dos componentes da Enki.',
             message:
-              'A camada de CRM da Enki é construída sobre o Twenty. Acompanhe o código, as licenças e as contribuições do projeto.',
+              'Consulte o código-fonte, as licenças e os créditos dos componentes da Enki.',
           })}
         />
         <SettingsCard
-          href="https://github.com/lsfdsb/twenty/tree/enki/production-2.49"
+          href="https://docs.enki.now/licencas"
           Icon={<IconBrandGithub size={20} />}
           title={t({
             id: 'Código-fonte do CRM',
