@@ -10,6 +10,8 @@ Only the web service and authenticated cron endpoints have public rewrites. The 
 
 The official Twenty image and Node dependency stage are pinned by digest. Build the matching frontend and server, then run `scripts/prepare-vercel-bundle.mjs` with a new destination outside the source tree. Its allowlist excludes environment files, backups, local users, secrets, node_modules and source maps. Apply the additive `schema/001-on-demand-maintenance.sql` migration explicitly; application startup never runs database migrations.
 
+Build the frontend with `node packages/twenty-docker/enki/scripts/build-frontend.mjs` from the source checkout. It extracts and compiles Lingui catalogs before Vite: production macros remove fallback text, so a Vite-only build can expose translation IDs to customers. Catalog regeneration is a build artifact; do not commit unrelated generated catalog changes. Hashed public assets under `/assets/` use immutable browser/CDN caching; HTML remains uncached because it includes workspace configuration.
+
 ## Durable business jobs
 
 BullMQ remains the job store and preserves native processors, priorities, progress, retries and delays. A durable job is committed before a Vercel Queues wake notification containing only its queue name. Immediate jobs normalize BullMQ's absent delay to zero. Workers fetch for at most 30 seconds, await active work and schedule another notification if necessary. Recovery scans every five minutes for waiting, prioritized, due delayed and abandoned active work.

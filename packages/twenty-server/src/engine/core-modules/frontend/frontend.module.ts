@@ -12,6 +12,7 @@ import { isDefined } from 'twenty-shared/utils';
 import { ClientConfigModule } from 'src/engine/core-modules/client-config/client-config.module';
 import { WorkspaceDomainsModule } from 'src/engine/core-modules/domain/workspace-domains/workspace-domains.module';
 import { FrontendService } from 'src/engine/core-modules/frontend/frontend.service';
+import { isVersionedFrontendAsset } from 'src/engine/core-modules/frontend/utils/is-versioned-frontend-asset.util';
 
 @Module({
   imports: [ClientConfigModule, WorkspaceDomainsModule],
@@ -37,6 +38,15 @@ export class FrontendModule implements OnModuleInit {
       index: false,
       redirect: false,
       setHeaders: (response, filePath) => {
+        if (
+          isVersionedFrontendAsset(filePath, this.frontendService.frontPath)
+        ) {
+          response.setHeader(
+            'Cache-Control',
+            'public, max-age=31536000, immutable',
+          );
+          response.setHeader('CDN-Cache-Control', 'public, s-maxage=31536000');
+        }
         if (filePath.toLowerCase().endsWith('.html')) {
           response.setHeader('Cache-Control', 'no-store');
           response.setHeader('CDN-Cache-Control', 'no-store');
