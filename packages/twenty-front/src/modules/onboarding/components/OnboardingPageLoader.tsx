@@ -2,8 +2,25 @@ import { isOnOnboardingVerifyPath } from '@/auth/utils/isOnOnboardingVerifyPath'
 import { OnboardingPulsingLogo } from '@/onboarding/components/OnboardingPulsingLogo';
 import { styled } from '@linaria/react';
 import { themeCssVariables } from 'twenty-ui/theme';
-import { i18n } from '@lingui/core';
+import { i18n, type MessageDescriptor } from '@lingui/core';
+import { msg } from '@lingui/core/macro';
+import { isNonEmptyString } from '@sniptt/guards';
 import { useEffect, useState } from 'react';
+
+const LOADING_MESSAGE = msg({
+  id: 'Preparando seu espaço…',
+  message: 'Preparando seu espaço…',
+});
+const SLOW_LOADING_MESSAGE = msg({
+  id: 'Está demorando um pouco mais. Verifique sua conexão ou tente recarregar.',
+  message:
+    'Está demorando um pouco mais. Verifique sua conexão ou tente recarregar.',
+});
+const RELOAD_MESSAGE = msg({ id: 'Recarregar', message: 'Recarregar' });
+
+// This loader also renders before the async locale catalog has activated.
+const translateLoadingMessage = (message: MessageDescriptor) =>
+  isNonEmptyString(i18n.locale) ? i18n._(message) : message.id;
 
 const StyledContainer = styled.div`
   align-items: center;
@@ -53,15 +70,13 @@ export const OnboardingPageLoader = () => {
         <OnboardingPulsingLogo />
       )}
       <StyledMessage role="status" aria-live="polite">
-        {isTakingLonger
-          ? i18n._(
-              'Está demorando um pouco mais. Verifique sua conexão ou tente recarregar.',
-            )
-          : i18n._('Preparando seu espaço…')}
+        {translateLoadingMessage(
+          isTakingLonger ? SLOW_LOADING_MESSAGE : LOADING_MESSAGE,
+        )}
       </StyledMessage>
       {isTakingLonger && (
         <StyledReload onClick={() => window.location.reload()}>
-          {i18n._('Recarregar')}
+          {translateLoadingMessage(RELOAD_MESSAGE)}
         </StyledReload>
       )}
     </StyledContainer>
