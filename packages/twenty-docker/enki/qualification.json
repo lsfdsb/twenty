@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-20",
+  "redis": {
+    "plan": "Free",
+    "autoUpgrade": false,
+    "eviction": false,
+    "freeAllowancePerMonth": 500000,
+    "onDemandRegisteredQueues": 26,
+    "idleServerCommands": 0,
+    "idleProbeMilliseconds": 35001,
+    "idleProbeExcludes": [
+      "recovery",
+      "native crons",
+      "application workload"
+    ],
+    "taskProbe": {
+      "oneImmediateTask": 80,
+      "tenImmediateTasksOneDrain": 443,
+      "recurringTaskSteadyExecutions": [
+        82,
+        82,
+        82
+      ],
+      "measurement": "isolated Redis total_commands_processed including Lua; no-op handlers",
+      "billingMeasurement": false,
+      "projectedCommandsForOneRecurringTaskPerMinutePer30Days": 3542400
+    },
+    "projectedEmptyRecoveryCommandsPer30Days": 17280,
+    "fullWorkloadWithinFreeAllowance": "workload-dependent; not universally guaranteed"
+  },
+  "serverRegressionTests": {
+    "passed": 63,
+    "failed": 0
+  },
+  "runtimeConfigurationTests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "redisRecoveryTests": {
+    "passed": 2,
+    "failed": 0
+  },
+  "vercelContainerProbe": {
+    "explicitServiceBuild": "passed",
+    "automaticDetection": "empty deployment",
+    "oidcHeader": true,
+    "oidcTokenFile": false,
+    "oidcEnvironmentToken": false
+  },
+  "email": {
+    "provider": "Resend",
+    "plan": "Free",
+    "provisioned": true,
+    "senderDomainVerified": true,
+    "smtpDelivered": true,
+    "nativeInvitationDelivered": true,
+    "nativePasswordResetDelivered": true,
+    "recipients": "provider test sink only"
+  },
+  "fullAppDeployed": true,
+  "domainMoved": false,
+  "productionApproved": false,
+  "schema": {
+    "matched": true,
+    "tables": 116,
+    "definitions": 3094,
+    "sha256": "e4ecf2f61a9b2eab109eda061e19ef889ee743b401ffe2e24444ff3372c4ff30"
+  },
+  "acceptance": {
+    "nativeSignIn": true,
+    "crmCreateReadRelationsDelete": true,
+    "nativeS3UploadCompleteDownload": true,
+    "bootstrapArtifactChecksums": 7,
+    "nativeMaintenanceBinding": true,
+    "unauthorizedCronRejected": true,
+    "immediateQueueDelivery": true,
+    "recoveredQueueDelivery": true,
+    "publicDesktopMobile": "pending"
+  },
+  "limitations": [
+    "Logic-function/code-interpreter execution needs an isolated executor; native production protections retained.",
+    "Code-dependent native automatic example was deactivated.",
+    "At-least-once delivery and 800-second execution limit.",
+    "No guarantee arbitrary workloads fit free quotas."
+  ]
+}

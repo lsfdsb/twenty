@@ -1,0 +1,119 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "regions": [
+    "gru1"
+  ],
+  "services": {
+    "web": {
+      "root": ".",
+      "entrypoint": "Dockerfile.vercel",
+      "functions": {
+        "Dockerfile.vercel": {
+          "maxDuration": 800,
+          "memory": 2048
+        }
+      }
+    },
+    "worker": {
+      "root": ".",
+      "entrypoint": "Dockerfile.worker",
+      "functions": {
+        "Dockerfile.worker": {
+          "maxDuration": 800,
+          "memory": 2048
+        }
+      }
+    },
+    "queues": {
+      "root": "gateway/",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "worker",
+          "format": "url",
+          "env": "WORKER_URL"
+        }
+      ],
+      "functions": {
+        "api/wake.mjs": {
+          "maxDuration": 800,
+          "experimentalTriggers": [
+            {
+              "type": "queue/v2beta",
+              "topic": "enki-twenty-queue-wake",
+              "retryAfterSeconds": 60,
+              "maxConcurrency": 4
+            }
+          ]
+        }
+      },
+      "entrypoint": "api/wake.mjs"
+    },
+    "maintenance": {
+      "root": "gateway/",
+      "entrypoint": "api/maintenance.mjs",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "worker",
+          "format": "url",
+          "env": "WORKER_URL"
+        }
+      ],
+      "functions": {
+        "api/maintenance.mjs": {
+          "maxDuration": 800
+        }
+      }
+    },
+    "recovery": {
+      "root": "gateway/",
+      "entrypoint": "api/recover.mjs",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "worker",
+          "format": "url",
+          "env": "WORKER_URL"
+        }
+      ],
+      "functions": {
+        "api/recover.mjs": {
+          "maxDuration": 60
+        }
+      }
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/internal/maintenance/tick",
+      "destination": {
+        "service": "maintenance",
+        "path": "/api/maintenance"
+      }
+    },
+    {
+      "source": "/internal/queues/recover",
+      "destination": {
+        "service": "recovery",
+        "path": "/api/recover"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "web"
+      }
+    }
+  ],
+  "crons": [
+    {
+      "path": "/internal/queues/recover",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/internal/maintenance/tick",
+      "schedule": "* * * * *"
+    }
+  ]
+}

@@ -5,7 +5,8 @@ const StyledLogo = styled.img`
   animation: onboardingPulsingLogo 0.8s ease-in-out infinite alternate;
   height: ${themeCssVariables.spacing[12]};
   margin-bottom: ${themeCssVariables.spacing[8]};
-  width: ${themeCssVariables.spacing[12]};
+  object-fit: contain;
+  width: 128px;
 
   @keyframes onboardingPulsingLogo {
     from {
@@ -23,5 +24,5 @@ const StyledLogo = styled.img`
 `;
 
 export const OnboardingPulsingLogo = () => (
-  <StyledLogo src="/images/integrations/twenty-logo.svg" alt="" />
+  <StyledLogo src="/brand/enki-logo.svg" alt="" data-default-brand />
 );

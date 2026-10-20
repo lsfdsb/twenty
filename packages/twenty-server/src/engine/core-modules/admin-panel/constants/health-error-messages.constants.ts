@@ -1,5 +1,10 @@
 export const HEALTH_ERROR_MESSAGES = {
+  ON_DEMAND_MAINTENANCE_STALE:
+    'On-demand maintenance has not completed recently',
   NO_ACTIVE_WORKERS: 'No active workers found',
+  ON_DEMAND_RECOVERY_STALE: 'On-demand queue recovery is not running',
+  ON_DEMAND_QUEUE_UNHEALTHY:
+    'On-demand queues have stalled work, failures or unavailable metrics',
   WORKER_TIMEOUT: 'Worker check timeout',
   DATABASE_TIMEOUT: 'Database timeout',
   REDIS_TIMEOUT: 'Redis timeout',

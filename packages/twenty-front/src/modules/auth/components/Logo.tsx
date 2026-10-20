@@ -3,6 +3,7 @@ import { getWorkspaceAvatarColorSeed } from '@/workspace/utils/getWorkspaceAvata
 import { styled } from '@linaria/react';
 import { isNonEmptyString } from '@sniptt/guards';
 import { AppPath } from 'twenty-shared/types';
+import { doNotTranslate } from 'twenty-shared/i18n';
 import { getImageAbsoluteURI, isDefined } from 'twenty-shared/utils';
 import { Avatar } from 'twenty-ui/primitives/data-display';
 import { themeCssVariables } from 'twenty-ui/theme';
@@ -47,7 +48,9 @@ const StyledSecondaryLogoContainer = styled.div`
 `;
 
 const StyledPrimaryLogo = styled.div`
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   height: 100%;
   width: 100%;
 `;
@@ -60,10 +63,12 @@ export const Logo = ({
   to = AppPath.SignInUp,
 }: LogoProps) => {
   const { redirectToDefaultDomain } = useRedirectToDefaultDomain();
-  const defaultPrimaryLogoUrl = `${window.location.origin}/images/icons/android/android-launchericon-192-192.png`;
+  const defaultPrimaryLogoUrl = `${window.location.origin}/brand/enki-logo.svg`;
 
   const primaryLogoUrl = getImageAbsoluteURI({
-    imageUrl: primaryLogo ?? defaultPrimaryLogoUrl,
+    imageUrl: isNonEmptyString(primaryLogo)
+      ? primaryLogo
+      : defaultPrimaryLogoUrl,
     baseUrl: REACT_APP_SERVER_BASE_URL,
   });
 
@@ -74,13 +79,18 @@ export const Logo = ({
       })
     : null;
 
-  const isUsingDefaultLogo = !isDefined(primaryLogo);
+  const isUsingDefaultLogo = !isNonEmptyString(primaryLogo);
 
   return (
-    <StyledContainer onClick={() => onClick?.()}>
+    <StyledContainer
+      onClick={() => onClick?.()}
+      data-enki-default-logo={isUsingDefaultLogo || undefined}
+    >
       {isUsingDefaultLogo ? (
         <UndecoratedLink to={to} onClick={() => redirectToDefaultDomain()}>
           <StyledPrimaryLogo
+            role="img"
+            aria-label={doNotTranslate('Enki')}
             style={{ backgroundImage: `url(${primaryLogoUrl})` }}
           />
         </UndecoratedLink>

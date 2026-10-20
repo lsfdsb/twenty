@@ -2,18 +2,22 @@ import { HealthIndicatorService } from '@nestjs/terminus';
 import { Test, type TestingModule } from '@nestjs/testing';
 
 import { type Redis } from 'ioredis';
+import { DataSource } from 'typeorm';
 
 import { HEALTH_ERROR_MESSAGES } from 'src/engine/core-modules/admin-panel/constants/health-error-messages.constants';
 import { HEALTH_INDICATORS_TIMEOUT } from 'src/engine/core-modules/admin-panel/constants/health-indicators-timeout.conts';
 import { WorkerHealthIndicator } from 'src/engine/core-modules/admin-panel/indicators/worker.health';
 import { MessageQueue } from 'src/engine/core-modules/message-queue/message-queue.constants';
 import { RedisClientService } from 'src/engine/core-modules/redis-client/redis-client.service';
+import { TwentyConfigService } from 'src/engine/core-modules/twenty-config/twenty-config.service';
 
 const mockQueueInstance = {
   getWorkers: jest.fn().mockResolvedValue([]),
   close: jest.fn().mockResolvedValue(undefined),
   getMetrics: jest.fn().mockResolvedValue({ count: 0, data: [] }),
   getWaitingCount: jest.fn().mockResolvedValue(0),
+  getPrioritizedCount: jest.fn().mockResolvedValue(0),
+  getJobs: jest.fn().mockResolvedValue([]),
   getActiveCount: jest.fn().mockResolvedValue(0),
   getDelayedCount: jest.fn().mockResolvedValue(0),
 };
@@ -27,13 +31,20 @@ const drainWorkerChecksLeftRunningByTheTimeout = () =>
 
 describe('WorkerHealthIndicator', () => {
   let service: WorkerHealthIndicator;
-  let mockRedis: jest.Mocked<Pick<Redis, 'ping'>>;
+  let mockRedis: jest.Mocked<Pick<Redis, 'ping' | 'get'>>;
+  let onDemand: boolean;
   let healthIndicatorService: jest.Mocked<HealthIndicatorService>;
   let loggerSpy: jest.SpyInstance;
+  let queryMaintenance: jest.Mock;
 
   beforeEach(async () => {
+    onDemand = false;
+    queryMaintenance = jest
+      .fn()
+      .mockImplementation(async () => [{ lastSuccessAt: new Date() }]);
     mockRedis = {
       ping: jest.fn(),
+      get: jest.fn().mockResolvedValue(null),
     };
 
     const mockRedisService = {
@@ -56,6 +67,7 @@ describe('WorkerHealthIndicator', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         WorkerHealthIndicator,
+        { provide: DataSource, useValue: { query: queryMaintenance } },
         {
           provide: RedisClientService,
           useValue: mockRedisService,
@@ -63,6 +75,10 @@ describe('WorkerHealthIndicator', () => {
         {
           provide: HealthIndicatorService,
           useValue: healthIndicatorService,
+        },
+        {
+          provide: TwentyConfigService,
+          useValue: { get: () => onDemand },
         },
       ],
     }).compile();
@@ -77,6 +93,8 @@ describe('WorkerHealthIndicator', () => {
     mockQueueInstance.getWorkers.mockResolvedValue([]);
     mockQueueInstance.getMetrics.mockResolvedValue({ count: 0, data: [] });
     mockQueueInstance.getWaitingCount.mockResolvedValue(0);
+    mockQueueInstance.getPrioritizedCount.mockResolvedValue(0);
+    mockQueueInstance.getJobs.mockResolvedValue([]);
     mockQueueInstance.getActiveCount.mockResolvedValue(0);
     mockQueueInstance.getDelayedCount.mockResolvedValue(0);
   });
@@ -88,6 +106,36 @@ describe('WorkerHealthIndicator', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('does not report healthy queues when native maintenance stops running', async () => {
+    onDemand = true;
+    mockRedis.get.mockResolvedValue(String(Date.now()));
+    queryMaintenance.mockResolvedValue([
+      { lastSuccessAt: new Date(Date.now() - 4 * 60_000) },
+    ]);
+    const result = await service.isHealthy();
+    expect(result.worker.status).toBe('down');
+    expect(result.worker.error).toBe(
+      HEALTH_ERROR_MESSAGES.ON_DEMAND_MAINTENANCE_STALE,
+    );
+  });
+
+  it('accepts an idle maintenance window but detects a missed idle sweep', async () => {
+    onDemand = true;
+    mockRedis.get.mockImplementation(async (key) =>
+      String(key).endsWith('maintenance:state')
+        ? JSON.stringify({ continuous: false })
+        : String(Date.now()),
+    );
+    queryMaintenance.mockResolvedValue([
+      { lastSuccessAt: new Date(Date.now() - 29 * 60_000) },
+    ]);
+    expect((await service.isHealthy()).worker.status).toBe('up');
+    queryMaintenance.mockResolvedValue([
+      { lastSuccessAt: new Date(Date.now() - 36 * 60_000) },
+    ]);
+    expect((await service.isHealthy()).worker.status).toBe('down');
   });
 
   it('should return up status when workers are active', async () => {
@@ -112,6 +160,43 @@ describe('WorkerHealthIndicator', () => {
     if ('error' in result.worker) {
       expect(result.worker.error).toBe(HEALTH_ERROR_MESSAGES.NO_ACTIVE_WORKERS);
     }
+  });
+
+  it('accepts a recovered idle on-demand deployment with no permanent workers', async () => {
+    onDemand = true;
+    mockRedis.get.mockResolvedValue(String(Date.now()));
+    expect((await service.isHealthy()).worker.status).toBe('up');
+  });
+
+  it('fails health when recovery stops, even if a worker is still visible', async () => {
+    onDemand = true;
+    mockQueueInstance.getWorkers.mockResolvedValue([{ id: 'worker1' }]);
+    mockRedis.get.mockResolvedValue(String(Date.now() - 11 * 60_000));
+    expect((await service.isHealthy()).worker).toMatchObject({
+      status: 'down',
+      error: HEALTH_ERROR_MESSAGES.ON_DEMAND_RECOVERY_STALE,
+    });
+  });
+
+  it('does not report healthy delivery solely because recovery is publishing', async () => {
+    onDemand = true;
+    mockRedis.get.mockResolvedValue(String(Date.now()));
+    mockQueueInstance.getPrioritizedCount.mockResolvedValue(1);
+    mockQueueInstance.getJobs.mockResolvedValue([
+      { timestamp: Date.now() - 16 * 60_000 },
+    ]);
+    expect((await service.isHealthy()).worker).toMatchObject({
+      status: 'down',
+      error: HEALTH_ERROR_MESSAGES.ON_DEMAND_QUEUE_UNHEALTHY,
+    });
+  });
+
+  it('includes prioritized jobs in the waiting metric', async () => {
+    onDemand = true;
+    mockQueueInstance.getPrioritizedCount.mockResolvedValue(3);
+    expect(
+      (await service.getQueueDetails(MessageQueue.emailQueue))?.metrics.waiting,
+    ).toBe(3);
   });
 
   it('should timeout after specified duration', async () => {

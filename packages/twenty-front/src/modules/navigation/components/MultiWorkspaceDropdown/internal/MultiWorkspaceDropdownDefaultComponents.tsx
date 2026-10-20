@@ -10,12 +10,12 @@ import { SelectOptionIcon } from '@/ui/input/components/SelectOptionIcon';
 import { DropdownContent } from '@/ui/layout/dropdown/components/DropdownContent';
 import { DropdownRoot } from '@/ui/layout/dropdown/components/DropdownRoot';
 import { AvailableWorkspaceItem } from '@/navigation/components/MultiWorkspaceDropdown/internal/components/AvailableWorkspaceItem';
-import { DEFAULT_WORKSPACE_LOGO } from '@/ui/navigation/navigation-drawer/constants/DefaultWorkspaceLogo';
 import { OPEN_RECORD_IN_OPTIONS } from '@/navigation/constants/OpenRecordInOptions';
 import { useColorScheme } from '@/workspace-member/hooks/useColorScheme';
 import { useAtomStateValue } from '@/ui/utilities/state/jotai/hooks/useAtomStateValue';
 import { getWorkspaceAvatarColorSeed } from '@/workspace/utils/getWorkspaceAvatarColorSeed';
 import { useLingui } from '@lingui/react/macro';
+import { styled } from '@linaria/react';
 import { isNonEmptyString } from '@sniptt/guards';
 import { Link } from 'react-router-dom';
 import { AppPath, SettingsPath } from 'twenty-shared/types';
@@ -35,6 +35,13 @@ import { Avatar } from 'twenty-ui/primitives/data-display';
 import { useIsMobile } from 'twenty-ui/utilities';
 import { useNavigateSettings } from '~/hooks/useNavigateSettings';
 import { getAbsoluteImageUrl } from '~/utils/image/getAbsoluteImageUrl';
+
+const StyledWorkspaceLogo = styled.img`
+  display: block;
+  height: 24px;
+  object-fit: contain;
+  width: 56px;
+`;
 
 export const MultiWorkspaceDropdownDefaultComponents = () => {
   const currentWorkspace = useAtomStateValue(currentWorkspaceState);
@@ -75,14 +82,22 @@ export const MultiWorkspaceDropdownDefaultComponents = () => {
   return (
     <>
       <Dropdown.Header>
-        <Avatar
-          imageProps={{ alt: '' }}
-          name={currentWorkspace?.displayName || ''}
-          colorSeed={getWorkspaceAvatarColorSeed(currentWorkspace?.displayName)}
-          src={getAbsoluteImageUrl(
-            currentWorkspace?.logo ?? DEFAULT_WORKSPACE_LOGO,
-          )}
-        />
+        {isNonEmptyString(currentWorkspace?.logo) ? (
+          <Avatar
+            imageProps={{ alt: '' }}
+            name={currentWorkspace?.displayName || ''}
+            colorSeed={getWorkspaceAvatarColorSeed(
+              currentWorkspace?.displayName,
+            )}
+            src={getAbsoluteImageUrl(currentWorkspace.logo)}
+          />
+        ) : (
+          <StyledWorkspaceLogo
+            src="/brand/enki-logo.svg"
+            alt=""
+            data-default-brand
+          />
+        )}
         <Dropdown.Title>{currentWorkspace?.displayName}</Dropdown.Title>
         <DropdownRoot
           dropdownId="multi-workspace-dropdown-context-menu"

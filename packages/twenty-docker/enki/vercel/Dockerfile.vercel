@@ -1,0 +1,16 @@
+FROM node@sha256:429bdfbc204b4eabc6438e6d34e4e9d8dd2ca1df8289bcd78cdd3c5db387b7a5 AS runtime-dependencies
+WORKDIR /runtime
+COPY runtime/package.json runtime/package-lock.json ./
+RUN npm ci --omit=dev --ignore-scripts --no-audit --no-fund
+
+FROM twentycrm/twenty@sha256:80e1b33b0b4b9dc292e776c64c320be2ae9467677ce639ba9bde1cffca68a3b0
+LABEL org.opencontainers.image.source="https://github.com/lsfdsb/twenty"
+LABEL org.opencontainers.image.version="enki-2.49.0"
+COPY --chown=1000:1000 backend/ /app/packages/twenty-server/dist/
+COPY --chown=1000:1000 frontend/ /app/packages/twenty-server/dist/front/
+COPY --chown=1000:1000 runtime/ /app/enki-runtime/
+COPY --from=runtime-dependencies --chown=1000:1000 /runtime/node_modules/ /app/enki-runtime/node_modules/
+ENV NODE_ENV=production NODE_PORT=3000 NODE_PATH=/app/enki-runtime/node_modules
+EXPOSE 3000
+ENTRYPOINT ["node", "/app/enki-runtime/entrypoint.cjs"]
+CMD ["dist/main"]

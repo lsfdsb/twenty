@@ -1,0 +1,10 @@
+*
+!Dockerfile.vercel
+!Dockerfile.worker
+!frontend/
+!frontend/**
+!backend/
+!backend/**
+!runtime/
+!runtime/**
+runtime/node_modules/

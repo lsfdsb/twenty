@@ -9,6 +9,8 @@ import {
 import { type MessageQueueDriver } from 'src/engine/core-modules/message-queue/drivers/interfaces/message-queue-driver.interface';
 
 import { BullMQDriver } from 'src/engine/core-modules/message-queue/drivers/bullmq.driver';
+import { OnDemandQueueCoordinator } from 'src/engine/core-modules/message-queue/drivers/on-demand-queue-coordinator';
+import { publishQueueWake } from 'src/engine/core-modules/message-queue/utils/publish-queue-wake.util';
 import { SyncDriver } from 'src/engine/core-modules/message-queue/drivers/sync.driver';
 import { MessageQueueDriverType } from 'src/engine/core-modules/message-queue/interfaces';
 import {
@@ -62,6 +64,7 @@ export class MessageQueueCoreModule extends ConfigurableModuleClass {
         ...(dynamicModule.exports ?? []),
         ApplicationJobEnqueueThrottlerService,
         MessageQueueWorkerDrainService,
+        QUEUE_DRIVER,
         ...Object.values(MessageQueue).map((queueName) =>
           getQueueToken(queueName),
         ),
@@ -106,6 +109,7 @@ export class MessageQueueCoreModule extends ConfigurableModuleClass {
         ...(dynamicModule.exports ?? []),
         ApplicationJobEnqueueThrottlerService,
         MessageQueueWorkerDrainService,
+        QUEUE_DRIVER,
         ...Object.values(MessageQueue).map((queueName) =>
           getQueueToken(queueName),
         ),
@@ -121,6 +125,9 @@ export class MessageQueueCoreModule extends ConfigurableModuleClass {
           config.metricsService,
           config.twentyConfigService,
           config.eventEmitter,
+          config.twentyConfigService.get('MESSAGE_QUEUE_ON_DEMAND_ENABLED')
+            ? new OnDemandQueueCoordinator(publishQueueWake)
+            : undefined,
         );
       }
       case MessageQueueDriverType.Sync: {

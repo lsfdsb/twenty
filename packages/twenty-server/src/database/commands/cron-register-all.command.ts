@@ -279,6 +279,11 @@ export class CronRegisterAllCommand extends CommandRunner {
 
     if (failures.length > 0) {
       this.logger.warn(`Failed commands: ${failures.join(', ')}`);
+      if (this.twentyConfigService.get('MESSAGE_QUEUE_ON_DEMAND_ENABLED')) {
+        throw new Error(
+          `Maintenance registration failed: ${failures.join(', ')}`,
+        );
+      }
     }
 
     if (successCount > 0) {

@@ -1,3 +1,5 @@
+import { vercelS3Credentials } from 'src/engine/core-modules/vercel/vercel-s3-credentials';
+
 import { Injectable } from '@nestjs/common';
 
 import { fromNodeProviderChain } from '@aws-sdk/credential-providers';
@@ -81,7 +83,9 @@ export class FileStorageDriverFactory extends DriverFactoryBase<StorageDriver> {
           presignEndpoint: presignEndpointOverride || undefined,
           credentials: accessKeyId
             ? { accessKeyId, secretAccessKey }
-            : fromNodeProviderChain({ clientConfig: { region } }),
+            : process.env.VERCEL === '1'
+              ? vercelS3Credentials
+              : fromNodeProviderChain({ clientConfig: { region } }),
           forcePathStyle: true,
           region: region ?? '',
         });

@@ -51,6 +51,9 @@ import { MetricsKeys } from 'src/engine/core-modules/metrics/types/metrics-keys.
 import { applyWorkspaceSentryContextFromJobData } from 'src/engine/core-modules/sentry/utils/apply-workspace-sentry-context-from-job-data.util';
 import { type TwentyConfigService } from 'src/engine/core-modules/twenty-config/twenty-config.service';
 
+import { OnDemandQueueCoordinator } from 'src/engine/core-modules/message-queue/drivers/on-demand-queue-coordinator';
+import { OnDemandScheduleRegistry } from 'src/engine/core-modules/message-queue/drivers/on-demand-schedule-registry';
+
 export type BullMQDriverOptions = QueueOptions;
 
 type BullMQJobsOptions = JobsOptions & {
@@ -73,15 +76,21 @@ export class BullMQDriver
     Record<MessageQueue, MessageQueueWorkerOptions>
   > = {};
   private workersDrain: Promise<void> | undefined;
+  readonly onDemandSchedules = new OnDemandScheduleRegistry();
 
   constructor(
     private options: BullMQDriverOptions,
     private metricsService: MetricsService,
     private twentyConfigService: TwentyConfigService,
     private eventEmitter: EventEmitter2,
+    private onDemand?: OnDemandQueueCoordinator,
   ) {}
 
   onModuleInit() {
+    if (this.onDemand) {
+      return;
+    }
+
     this.metricsService.createMultiObservableGauge({
       metricName: 'twenty_queue_jobs_waiting_total',
       options: {
@@ -142,6 +151,7 @@ export class BullMQDriver
     let workerCloseError: unknown;
 
     try {
+      await this.onDemand?.close();
       await this.closeWorkers();
     } catch (error) {
       workerCloseError = error;
@@ -243,8 +253,41 @@ export class BullMQDriver
     handler: (job: MessageQueueJob<T>) => Promise<void>,
     options?: MessageQueueWorkerOptions,
   ) {
+    if (this.onDemand) {
+      this.onDemandSchedules.registerHandler(queueName, handler);
+      this.onDemand.register(queueName, async () => {
+        await this.writeGlobalConcurrency(
+          queueName,
+          options?.globalConcurrency,
+        );
+
+        return this.createWorker(queueName, handler, options, false);
+      });
+
+      return;
+    }
+
+    void this.writeGlobalConcurrency(queueName, options?.globalConcurrency);
+    this.createWorker(queueName, handler, options);
+  }
+
+  async drainOnDemand(queueName: MessageQueue) {
+    if (!this.onDemand || !this.queueMap[queueName]) {
+      throw new Error('On-demand queue processing is not enabled');
+    }
+
+    await this.onDemand.run(queueName, this.queueMap[queueName]);
+  }
+
+  private createWorker<T>(
+    queueName: MessageQueue,
+    handler: (job: MessageQueueJob<T>) => Promise<void>,
+    options?: MessageQueueWorkerOptions,
+    autorun = true,
+  ): Worker {
     const workerOptions = {
       ...this.options,
+      autorun,
       ...(isDefined(options?.concurrency)
         ? { concurrency: options.concurrency }
         : {}),
@@ -261,8 +304,6 @@ export class BullMQDriver
     };
 
     this.workerOptionsMap[queueName] = options;
-
-    void this.writeGlobalConcurrency(queueName, options?.globalConcurrency);
 
     this.workerMap[queueName] = new Worker(
       queueName,
@@ -359,6 +400,8 @@ export class BullMQDriver
         shouldStoreInCache: false,
       });
     });
+
+    return this.workerMap[queueName];
   }
 
   async addCron<T>({
@@ -374,6 +417,18 @@ export class BullMQDriver
     options: QueueCronJobOptions;
     jobId?: string;
   }): Promise<void> {
+    if (this.onDemand) {
+      this.onDemandSchedules.register({
+        queueName,
+        jobName,
+        data,
+        options,
+        jobId,
+      });
+
+      return;
+    }
+
     if (!this.queueMap[queueName]) {
       throw new Error(
         `Queue ${queueName} is not registered, make sure you have added it as a queue provider`,
@@ -413,6 +468,15 @@ export class BullMQDriver
     jobName: string;
     jobId?: string;
   }): Promise<void> {
+    if (this.onDemand) {
+      if (jobId) {
+        throw new Error('Unsupported on-demand maintenance schedule');
+      }
+      this.onDemandSchedules.remove(queueName, jobName);
+
+      return;
+    }
+
     await this.queueMap[queueName].removeJobScheduler(
       getJobKey({ jobName, jobId }),
     );
@@ -510,6 +574,8 @@ export class BullMQDriver
 
     const job = await this.queueMap[queueName].add(jobName, data, queueOptions);
 
+    await this.onDemand?.notify(queueName, job.timestamp + (job.delay ?? 0));
+
     return job.id;
   }
 
@@ -572,6 +638,13 @@ export class BullMQDriver
         },
       })),
     );
+
+    if (addedJobs.length > 0) {
+      await this.onDemand?.notify(
+        queueName,
+        Math.min(...addedJobs.map((job) => job.timestamp + (job.delay ?? 0))),
+      );
+    }
 
     return addedJobs.map((job) => job.id).filter(isDefined);
   }

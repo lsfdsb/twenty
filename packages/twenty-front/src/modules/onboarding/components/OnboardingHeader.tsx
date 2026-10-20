@@ -56,11 +56,13 @@ const StyledRightSide = styled(StyledSide)`
 `;
 
 const StyledLogo = styled.div`
-  background-image: url('/images/integrations/twenty-logo.svg');
-  background-size: cover;
+  background-image: url('/brand/enki-logo.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   height: ${themeCssVariables.spacing[6]};
-  opacity: 0.4;
-  width: ${themeCssVariables.spacing[6]};
+  opacity: 1;
+  width: 76px;
 `;
 
 type OnboardingHeaderProps = {
@@ -92,7 +94,7 @@ export const OnboardingHeader = ({
         )}
       </StyledLeftSide>
       <StyledCenter>
-        <StyledLogo />
+        <StyledLogo data-default-brand />
       </StyledCenter>
       <StyledRightSide>{rightComponent}</StyledRightSide>
     </StyledHeader>

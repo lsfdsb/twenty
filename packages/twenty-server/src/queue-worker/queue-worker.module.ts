@@ -7,6 +7,7 @@ import { MessageQueueWorkerDrainService } from 'src/engine/core-modules/message-
 import { TwentyOrmModule } from 'src/engine/twenty-orm/twenty-orm.module';
 import { WorkspaceEventEmitterModule } from 'src/engine/workspace-event-emitter/workspace-event-emitter.module';
 import { ModulesModule } from 'src/modules/modules.module';
+import { OnDemandScheduleModule } from 'src/queue-worker/on-demand-schedule.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ModulesModule } from 'src/modules/modules.module';
     WorkspaceEventEmitterModule,
     JobsModule,
     TwentyOrmModule,
+    OnDemandScheduleModule,
   ],
 })
 export class QueueWorkerModule implements OnModuleDestroy {

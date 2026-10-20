@@ -1,0 +1,7 @@
+{
+  "name": "enki-vercel-runtime",
+  "private": true,
+  "dependencies": {
+    "@vercel/queue": "0.8.0"
+  }
+}

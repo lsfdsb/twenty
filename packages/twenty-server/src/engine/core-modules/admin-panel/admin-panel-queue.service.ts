@@ -1,3 +1,6 @@
+import { publishQueueWake } from 'src/engine/core-modules/message-queue/utils/publish-queue-wake.util';
+import { TwentyConfigService } from 'src/engine/core-modules/twenty-config/twenty-config.service';
+
 import { Injectable } from '@nestjs/common';
 
 import { msg } from '@lingui/core/macro';
@@ -22,7 +25,10 @@ type JobOperationResult = {
 
 @Injectable()
 export class AdminPanelQueueService {
-  constructor(private readonly redisClient: RedisClientService) {}
+  constructor(
+    private readonly redisClient: RedisClientService,
+    private readonly twentyConfigService: TwentyConfigService,
+  ) {}
 
   async getQueueJobs(
     queueName: MessageQueue,
@@ -135,6 +141,7 @@ export class AdminPanelQueueService {
     try {
       if (jobIds.length === 0) {
         await queue.retryJobs({ state: 'failed' });
+        await this.wakeQueue(queueName);
 
         return { retriedCount: -1, results: [] };
       }
@@ -181,6 +188,10 @@ export class AdminPanelQueueService {
         }
       }
 
+      if (retriedCount > 0) {
+        await this.wakeQueue(queueName);
+      }
+
       return { retriedCount, results };
     } catch (error) {
       throw new InternalServerError(
@@ -191,6 +202,12 @@ export class AdminPanelQueueService {
       );
     } finally {
       await queue.close();
+    }
+  }
+
+  private async wakeQueue(queueName: MessageQueue) {
+    if (this.twentyConfigService.get('MESSAGE_QUEUE_ON_DEMAND_ENABLED')) {
+      await publishQueueWake(queueName, Date.now());
     }
   }
 

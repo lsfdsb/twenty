@@ -1,3 +1,6 @@
+import { type Request, type Response, type NextFunction } from 'express';
+import { withVercelRequest } from 'src/engine/core-modules/vercel/vercel-request-context';
+
 import { NestFactory } from '@nestjs/core';
 import { type NestExpressApplication } from '@nestjs/platform-express';
 
@@ -17,6 +20,7 @@ import { ExceptionHandlerService } from 'src/engine/core-modules/exception-handl
 import { LoggerService } from 'src/engine/core-modules/logger/logger.service';
 import { getSessionStorageOptions } from 'src/engine/core-modules/session-storage/session-storage.module-factory';
 import { TwentyConfigService } from 'src/engine/core-modules/twenty-config/twenty-config.service';
+import { RedisClientService } from 'src/engine/core-modules/redis-client/redis-client.service';
 import { configTransformers } from 'src/engine/core-modules/twenty-config/utils/config-transformers.util';
 import { UsageRecorderService } from 'src/engine/core-modules/usage/services/usage-recorder.service';
 import { applyCredentialedCors } from 'src/engine/core-modules/user-session/utils/apply-credentialed-cors.util';
@@ -45,9 +49,39 @@ const bootstrap = async () => {
         }
       : {}),
   });
+  app.use((request: Request, _response: Response, next: NextFunction) =>
+    withVercelRequest(request, next),
+  );
+
   const logger = app.get(LoggerService);
   const twentyConfigService = app.get(TwentyConfigService);
   const exceptionHandlerService = app.get(ExceptionHandlerService);
+
+  if (twentyConfigService.get('MESSAGE_QUEUE_ON_DEMAND_ENABLED')) {
+    const redis = app.get(RedisClientService);
+    let activityRecordedAt = 0;
+
+    app.use((request: Request, _response: Response, next: NextFunction) => {
+      if (
+        request.path === `/${ApiPath.Health}` ||
+        Date.now() - activityRecordedAt < 60_000
+      ) {
+        next();
+        return;
+      }
+
+      // Persist activity before a request can create a scheduled integration.
+      // The gateway can then leave an unused database asleep between sweeps.
+      void redis
+        .getQueueClient()
+        .set(`${redis.getQueuePrefix()}:enki:activity`, '1', 'EX', 15 * 60)
+        .then(() => {
+          activityRecordedAt = Date.now();
+          next();
+        })
+        .catch((error: Error) => next(error));
+    });
+  }
 
   process.on('unhandledRejection', (reason) => {
     const error =

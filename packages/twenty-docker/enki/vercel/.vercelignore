@@ -1,0 +1,12 @@
+/*
+!Dockerfile.vercel
+!Dockerfile.worker
+!vercel.json
+!.dockerignore
+!frontend
+!backend
+!runtime
+!gateway
+**/node_modules
+**/.env*
+**/.secrets

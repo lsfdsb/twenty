@@ -2,6 +2,7 @@ import { Logger } from '@nestjs/common';
 
 import { plainToClass } from 'class-transformer';
 import {
+  IsBoolean,
   IsDateString,
   IsDefined,
   IsEnum,
@@ -1549,6 +1550,16 @@ export class ConfigVariables {
   @IsOptional()
   @IsString()
   REDIS_QUEUE_PREFIX: string = 'bull';
+
+  @ConfigVariablesMetadata({
+    group: ConfigVariablesGroup.ADVANCED_SETTINGS,
+    description:
+      'Run BullMQ workers only during authenticated Vercel queue requests. Requires the queue consumer and recovery cron.',
+    isEnvOnly: true,
+    type: ConfigVariableType.BOOLEAN,
+  })
+  @IsBoolean()
+  MESSAGE_QUEUE_ON_DEMAND_ENABLED = false;
 
   @ConfigVariablesMetadata({
     group: ConfigVariablesGroup.ADVANCED_SETTINGS,

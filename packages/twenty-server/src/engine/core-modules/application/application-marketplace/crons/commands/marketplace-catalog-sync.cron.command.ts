@@ -5,6 +5,7 @@ import { MarketplaceCatalogSyncCronJob } from 'src/engine/core-modules/applicati
 import { InjectMessageQueue } from 'src/engine/core-modules/message-queue/decorators/message-queue.decorator';
 import { MessageQueue } from 'src/engine/core-modules/message-queue/message-queue.constants';
 import { MessageQueueService } from 'src/engine/core-modules/message-queue/services/message-queue.service';
+import { TwentyConfigService } from 'src/engine/core-modules/twenty-config/twenty-config.service';
 
 @Command({
   name: 'cron:marketplace-catalog-sync',
@@ -15,12 +16,20 @@ export class MarketplaceCatalogSyncCronCommand extends CommandRunner {
   constructor(
     @InjectMessageQueue(MessageQueue.cronQueue)
     private readonly messageQueueService: MessageQueueService,
+    private readonly twentyConfigService: TwentyConfigService,
   ) {
     super();
   }
 
   async run(): Promise<void> {
-    await this.messageQueueService.add(MarketplaceCatalogSyncCronJob.name, {});
+    // Request-driven workers register schedules on every cold start. The
+    // persisted schedule handles sync without creating another job per boot.
+    if (!this.twentyConfigService.get('MESSAGE_QUEUE_ON_DEMAND_ENABLED')) {
+      await this.messageQueueService.add(
+        MarketplaceCatalogSyncCronJob.name,
+        {},
+      );
+    }
 
     await this.messageQueueService.addCron<undefined>({
       jobName: MarketplaceCatalogSyncCronJob.name,

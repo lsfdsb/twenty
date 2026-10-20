@@ -1,0 +1,144 @@
+@import url('/brand/enki-fonts.css');
+
+/* App-level tokens keep upstream generated themes and workspace logos intact. */
+:root,
+.light,
+.dark {
+  --t-font-family: 'Geist Sans', Arial, sans-serif;
+  --enki-font-mono: 'Geist Mono', monospace;
+  --enki-font-display: 'Bebas Neue', Impact, sans-serif;
+  --t-border-radius-xs: 3px;
+  --t-border-radius-sm: 5px;
+  --t-border-radius-md: 9px;
+  --t-border-radius-lg: 12px;
+  --t-border-radius-xl: 16px;
+  --t-animation-duration-fast: 0.15;
+  --t-animation-duration-normal: 0.22;
+}
+
+.light {
+  --t-background-primary: #fffdf4;
+  --t-background-secondary: #f8f7e9;
+  --t-background-tertiary: #f1eee3;
+  --t-background-quaternary: #e9e3d5;
+  --t-background-noisy: none;
+  --t-background-transparent-primary: #fffdf480;
+  --t-background-transparent-secondary: #f8f7e966;
+  --t-background-transparent-strong: #211f1b29;
+  --t-background-transparent-medium: #211f1b14;
+  --t-background-transparent-light: #211f1b0a;
+  --t-background-transparent-lighter: #211f1b05;
+  --t-background-inverted-primary: #211f1b;
+  --t-background-inverted-secondary: #4c463a;
+  --t-background-primary-inverted: #211f1b;
+  --t-background-primary-inverted-hover: #4c463a;
+  --t-font-color-primary: #211f1b;
+  --t-font-color-secondary: #716c63;
+  --t-font-color-tertiary: #81745f;
+  --t-font-color-light: #9b8f7b;
+  --t-font-color-extra-light: #b8ad98;
+  --t-font-color-inverted: #fffdf4;
+  --t-font-color-on-accent: #fffdf4;
+  --t-border-color-strong: #cfc3ae;
+  --t-border-color-medium: #ded9cd;
+  --t-border-color-light: #e9e3d5;
+  --t-border-color-transparent-strong: #211f1b12;
+  --t-accent-primary: #f3b98f;
+  --t-accent-secondary: #f6c9a6;
+  --t-accent-tertiary: #fce3cc;
+  --t-accent-quaternary: #fdf0df;
+  --t-accent-accent3570: #d77a43;
+  --t-accent-accent4060: #c66a35;
+  --t-accent-accent1: #fffaf1;
+  --t-accent-accent2: #fdf0df;
+  --t-accent-accent3: #fce3cc;
+  --t-accent-accent4: #f8d1ad;
+  --t-accent-accent5: #f3b98f;
+  --t-accent-accent6: #e99b65;
+  --t-accent-accent7: #d77a43;
+  --t-accent-accent8: #c66a35;
+  --t-accent-accent9: #b94b20;
+  --t-accent-accent10: #a4401a;
+  --t-accent-accent11: #a6401b;
+  --t-accent-accent12: #542c1e;
+  --t-buttons-secondary-text-color: #a6401b;
+  --t-box-shadow-color: #211f1b08;
+  --t-box-shadow-light: 0 2px 5px #211f1b09;
+  --t-box-shadow-sidebar: 1px 0 0 #ded9cd;
+  --t-box-shadow-strong: 0 10px 32px #211f1b18;
+}
+
+.dark {
+  --t-background-primary: #2c2923;
+  --t-background-secondary: #26241f;
+  --t-background-tertiary: #211f1b;
+  --t-background-quaternary: #38342c;
+  --t-background-noisy: none;
+  --t-font-color-primary: #f8f3e6;
+  --t-font-color-secondary: #c6bda9;
+  --t-font-color-tertiary: #ab9e87;
+  --t-font-color-light: #928570;
+  --t-font-color-extra-light: #6f6658;
+  --t-font-color-inverted: #211f1b;
+  --t-font-color-on-accent: #211f1b;
+  --t-background-primary-inverted: #f8f3e6;
+  --t-background-primary-inverted-hover: #e5d8bc;
+  --t-background-inverted-primary: #f8f3e6;
+  --t-background-inverted-secondary: #e5d8bc;
+  --t-border-color-strong: #5a5141;
+  --t-border-color-medium: #423c32;
+  --t-border-color-light: #363129;
+  --t-accent-primary: #6d402c;
+  --t-accent-secondary: #593827;
+  --t-accent-tertiary: #453025;
+  --t-accent-quaternary: #33291f;
+  --t-accent-accent3570: #d77a43;
+  --t-accent-accent4060: #e99b65;
+  --t-accent-accent1: #28221c;
+  --t-accent-accent2: #33291f;
+  --t-accent-accent3: #453025;
+  --t-accent-accent4: #593827;
+  --t-accent-accent5: #6d402c;
+  --t-accent-accent6: #965332;
+  --t-accent-accent7: #ba6739;
+  --t-accent-accent8: #db8049;
+  --t-accent-accent9: #f27735;
+  --t-accent-accent10: #fb9457;
+  --t-accent-accent11: #f7a774;
+  --t-accent-accent12: #f9dcc0;
+  --t-buttons-secondary-text-color: #f7a774;
+  --t-box-shadow-color: #00000026;
+}
+
+[data-enki-default-logo] {
+  width: 128px;
+  height: 56px;
+}
+
+.dark [data-enki-default-logo] > a {
+  filter: invert(1);
+}
+
+.dark [data-default-brand] {
+  filter: invert(1);
+}
+
+[data-click-outside-id='navigation-drawer'] {
+  background: var(--t-background-tertiary);
+}
+
+[data-testid='top-bar-title'] {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  .light,
+  .dark {
+    --t-animation-duration-instant: 0;
+    --t-animation-duration-fast: 0;
+    --t-animation-duration-normal: 0;
+    --t-animation-duration-slow: 0;
+  }
+}

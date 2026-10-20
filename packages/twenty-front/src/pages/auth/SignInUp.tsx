@@ -1,4 +1,4 @@
-import { StyledAuthContent } from '@/auth/components/StyledAuthContent';
+import { EnkiSignInLayout } from '@/auth/components/EnkiSignInLayout';
 import { useSignInUp } from '@/auth/sign-in-up/hooks/useSignInUp';
 import { useSignInUpForm } from '@/auth/sign-in-up/hooks/useSignInUpForm';
 import { isCreatingWorkspaceState } from '@/auth/states/isCreatingWorkspaceState';
@@ -122,13 +122,13 @@ export const SignInUp = () => {
     }
 
     if (isGlobalScope) {
-      return t`Welcome to Twenty`;
+      return t({ id: 'Entre na Enki', message: 'Entre na Enki' });
     }
 
     const workspaceName = workspacePublicData?.displayName;
 
     if (!workspaceName) {
-      return t`Welcome to your workspace`;
+      return t({ id: 'Acesse seu espaço', message: 'Acesse seu espaço' });
     }
 
     return t`Welcome, ${workspaceName}.`;
@@ -219,9 +219,9 @@ export const SignInUp = () => {
   ) : (
     <StyledBackground>
       {signInUpStep === SignInUpStep.EmailVerification ? (
-        <StyledAuthContent>
+        <EnkiSignInLayout>
           <EmailVerificationSent email={searchParams.get('email')} />
-        </StyledAuthContent>
+        </EnkiSignInLayout>
       ) : (
         <SignInUpStandardContent
           workspacePublicData={workspacePublicData}

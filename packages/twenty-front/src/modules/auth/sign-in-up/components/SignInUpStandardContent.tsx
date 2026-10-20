@@ -1,19 +1,30 @@
 import { Logo } from '@/auth/components/Logo';
-import { StyledAuthContent } from '@/auth/components/StyledAuthContent';
-import { Title } from '@/auth/components/Title';
+import { EnkiSignInLayout } from '@/auth/components/EnkiSignInLayout';
 import { AnimatedEaseIn } from '@/auth/components/internal/AnimatedEaseIn/AnimatedEaseIn';
 import { FooterNote } from '@/auth/sign-in-up/components/FooterNote';
 import { WorkspaceSelectionFooter } from '@/auth/sign-in-up/components/WorkspaceSelectionFooter';
 import { SignInUpStep } from '@/auth/states/signInUpStepState';
 import { styled } from '@linaria/react';
+import { useLingui } from '@lingui/react/macro';
 import { type JSX } from 'react';
 import { AppPath } from 'twenty-shared/types';
 import { themeCssVariables } from 'twenty-ui/theme';
 import { type PublicWorkspaceData } from '~/generated-metadata/graphql';
 
-const StyledTitleContainer = styled.div`
+const StyledTitle = styled.h1`
+  color: ${themeCssVariables.font.color.primary};
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
   line-height: 1.2;
-  margin-top: ${themeCssVariables.spacing[10]};
+  margin: 0 0 12px;
+`;
+
+const StyledDescription = styled.p`
+  color: ${themeCssVariables.font.color.secondary};
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
 `;
 
 const StyledFormContainer = styled.div`
@@ -41,19 +52,32 @@ export const SignInUpStandardContent = ({
   title,
   onClickOnLogo,
 }: SignInUpStandardContentProps) => {
+  const { t } = useLingui();
+  const isCredentialStep = [
+    SignInUpStep.Init,
+    SignInUpStep.Email,
+    SignInUpStep.Password,
+  ].includes(signInUpStep);
+
   return (
-    <StyledAuthContent>
+    <EnkiSignInLayout>
       <AnimatedEaseIn>
         <Logo
-          secondaryLogo={workspacePublicData?.logo}
-          placeholder={workspacePublicData?.displayName}
+          primaryLogo={workspacePublicData?.logo || undefined}
           onClick={onClickOnLogo}
           to={AppPath.SignInUp}
         />
       </AnimatedEaseIn>
-      <StyledTitleContainer>
-        <Title animate>{title}</Title>
-      </StyledTitleContainer>
+      <StyledTitle>{title}</StyledTitle>
+      {isCredentialStep && (
+        <StyledDescription>
+          {t({
+            id: 'Seu time, seus clientes e as próximas oportunidades esperam por você.',
+            message:
+              'Seu time, seus clientes e as próximas oportunidades esperam por você.',
+          })}
+        </StyledDescription>
+      )}
       <StyledFormContainer>{signInUpForm}</StyledFormContainer>
       {signInUpStep === SignInUpStep.WorkspaceSelection && (
         <WorkspaceSelectionFooter />
@@ -68,6 +92,6 @@ export const SignInUpStandardContent = ({
       ].includes(signInUpStep) && (
         <FooterNote secondaryAgreement="dataProcessingAgreement" />
       )}
-    </StyledAuthContent>
+    </EnkiSignInLayout>
   );
 };
