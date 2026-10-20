@@ -17,6 +17,7 @@ Schema parity matched 116 tables and 3,094 normalized definitions, including the
 - SMTP, native invitation and password-reset emails reached Resend's provider test sink with delivered events. Invitation recovery and immediate notification were both exercised.
 - The private service binding executed native maintenance; unauthenticated recovery returned 401. The 31 enabled native schedules have PostgreSQL cursors and leases.
 - Server regressions: 61 passing tests plus two cold-start registration tests. Runtime/idle-policy checks: eight passing tests. Redis recovery: two passing tests. Server types, changed-file lint and matching frontend/backend builds passed.
+- Startup ingress regression checks cover queued requests during native boot, preserved identity/host/body/cookies, native startup failure and process exit. The ingress binds before Nest initialization and never reports healthy until the native endpoint answers.
 - Desktop and mobile local screenshots were captured; public-domain screenshots remain a post-promotion gate.
 
 ## Explicit limitations
