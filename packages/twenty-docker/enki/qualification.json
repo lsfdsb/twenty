@@ -29,11 +29,11 @@
     "fullWorkloadWithinFreeAllowance": "workload-dependent; not universally guaranteed"
   },
   "serverRegressionTests": {
-    "passed": 63,
+    "passed": 65,
     "failed": 0
   },
   "runtimeConfigurationTests": {
-    "passed": 8,
+    "passed": 11,
     "failed": 0
   },
   "redisRecoveryTests": {
@@ -58,8 +58,8 @@
     "recipients": "provider test sink only"
   },
   "fullAppDeployed": true,
-  "domainMoved": false,
-  "productionApproved": false,
+  "domainMoved": true,
+  "productionApproved": true,
   "schema": {
     "matched": true,
     "tables": 116,
@@ -75,12 +75,27 @@
     "unauthorizedCronRejected": true,
     "immediateQueueDelivery": true,
     "recoveredQueueDelivery": true,
-    "publicDesktopMobile": "pending"
+    "publicDesktopMobile": "passed: desktop and 390x844 browser viewport",
+    "finalDomainS3Sha256": true,
+    "finalDomainCrmAndInvitation": true,
+    "activeDemoRecords": 0,
+    "nativeUsers": 1
   },
   "limitations": [
     "Logic-function/code-interpreter execution needs an isolated executor; native production protections retained.",
     "Code-dependent native automatic example was deactivated.",
     "At-least-once delivery and 800-second execution limit.",
-    "No guarantee arbitrary workloads fit free quotas."
-  ]
+    "No guarantee arbitrary workloads fit free quotas.",
+    "Cold native initialization can take tens of seconds; startup ingress avoids premature TCP startup failure.",
+    "Mobile verified by browser viewport, not a physical-device Safari run."
+  ],
+  "production": {
+    "url": "https://app.enki.now",
+    "deploymentId": "dpl_6Qh31Fjgi5EZD1XRsGyXJLTN5yJu",
+    "sourceCommit": "1709d676",
+    "nativeHealth": "all five indicators operational",
+    "automaticMaintenance": "204",
+    "automaticRecovery": "200",
+    "workerDrains": "204"
+  }
 }
