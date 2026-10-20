@@ -10,7 +10,10 @@ type BaseHeadProps = {
 export const BaseHead = ({ i18n }: BaseHeadProps) => {
   return (
     <Head>
-      <title>{i18n._('Twenty email')}</title>
+      <title>{i18n._('Enki')}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="color-scheme" content="light" />
+      <meta name="supported-color-schemes" content="light" />
       <Font
         fontFamily={canvasTheme.font.family}
         fallbackFontFamily="sans-serif"

@@ -1,64 +1,28 @@
 import { type I18n } from '@lingui/core';
-import { Column, Container, Row } from 'react-email';
+import { Section } from 'react-email';
+import { canvasTheme } from 'src/common-style';
 import { Link } from 'src/components/Link';
 import { ShadowText } from 'src/components/ShadowText';
 
-const footerContainerStyle = {
-  marginTop: '12px',
-};
+type FooterProps = { i18n: I18n };
 
-type FooterProps = {
-  i18n: I18n;
-};
-
-export const Footer = ({ i18n }: FooterProps) => {
-  return (
-    <Container style={footerContainerStyle}>
-      <Row>
-        <Column>
-          <ShadowText>
-            <Link
-              href="https://twenty.com/"
-              value={i18n._('Website')}
-              aria-label={i18n._("Visit Twenty's website")}
-            />
-          </ShadowText>
-        </Column>
-        <Column>
-          <ShadowText>
-            <Link
-              href="https://github.com/twentyhq/twenty"
-              value={i18n._('Github')}
-              aria-label={i18n._("Visit Twenty's GitHub repository")}
-            />
-          </ShadowText>
-        </Column>
-        <Column>
-          <ShadowText>
-            <Link
-              href="https://docs.twenty.com/getting-started/introduction"
-              value={i18n._('User guide')}
-              aria-label={i18n._("Read Twenty's user guide")}
-            />
-          </ShadowText>
-        </Column>
-        <Column>
-          <ShadowText>
-            <Link
-              href="https://docs.twenty.com/"
-              value={i18n._('Developers')}
-              aria-label={i18n._("Visit Twenty's developer documentation")}
-            />
-          </ShadowText>
-        </Column>
-      </Row>
-      <ShadowText>
-        <>
-          {i18n._('Twenty.com, Public Benefit Corporation')}
-          <br />
-          {i18n._('San Francisco / Paris')}
-        </>
-      </ShadowText>
-    </Container>
-  );
-};
+export const Footer = ({ i18n }: FooterProps) => (
+  <Section
+    style={{
+      borderTop: `1px solid ${canvasTheme.border.color.highlighted}`,
+      marginTop: '32px',
+      paddingTop: '24px',
+    }}
+  >
+    <ShadowText>
+      <strong>{i18n._('Equipe Enki')}</strong>
+      <br />
+      {i18n._('Relacionamentos que continuam.')}
+    </ShadowText>
+    <ShadowText>
+      <Link href="https://enki.now" value="enki.now" />
+      {' · '}
+      <Link href="https://app.enki.now" value={i18n._('Acessar meu espaço')} />
+    </ShadowText>
+  </Section>
+);

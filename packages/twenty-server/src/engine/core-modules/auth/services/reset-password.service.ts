@@ -220,7 +220,7 @@ export class ResetPasswordService {
           new Date(),
         ),
         {
-          long: true,
+          long: false,
         },
       ),
       hasPassword,
@@ -236,7 +236,7 @@ export class ResetPasswordService {
     const subjectTemplate = hasPassword
       ? msg`Action Needed to Reset Password`
       : msg`Action Needed to Set Password`;
-    const subject = i18n._(subjectTemplate);
+    const subject = `Enki · ${i18n._(subjectTemplate)}`;
 
     await this.emailService.send({
       from: `${this.twentyConfigService.get(

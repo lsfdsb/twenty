@@ -12,6 +12,8 @@ const titleStyle = {
   fontSize: canvasTheme.font.size.xl,
   fontWeight: canvasTheme.font.weight.bold,
   color: canvasTheme.font.colors.highlighted,
+  lineHeight: '34px',
+  margin: '0 0 20px',
 };
 
 export const Title = ({ value }: TitleProps) => {

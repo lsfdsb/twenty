@@ -8,6 +8,7 @@ LABEL org.opencontainers.image.source="https://github.com/lsfdsb/twenty"
 LABEL org.opencontainers.image.version="enki-2.49.0"
 COPY --chown=1000:1000 backend/ /app/packages/twenty-server/dist/
 COPY --chown=1000:1000 frontend/ /app/packages/twenty-server/dist/front/
+COPY --chown=1000:1000 emails/ /app/packages/twenty-emails/dist/
 COPY --chown=1000:1000 runtime/ /app/enki-runtime/
 COPY --from=runtime-dependencies --chown=1000:1000 /runtime/node_modules/ /app/enki-runtime/node_modules/
 ENV NODE_ENV=production NODE_PORT=3000 NODE_PATH=/app/enki-runtime/node_modules

@@ -15,6 +15,7 @@ const template = fileURLToPath(new URL('../vercel/', import.meta.url));
 await mkdir(destination, { recursive: false });
 await cp(template, destination, { recursive: true });
 await cp(frontend, path.join(destination, 'frontend'), { recursive: true });
+await cp(path.join(source, 'packages/twenty-emails/dist'), path.join(destination, 'emails'), { recursive: true, filter: (file) => !file.endsWith('.map') });
 await cp(path.join(source, 'packages/twenty-server/dist'), path.join(destination, 'backend'), { recursive: true, filter: (file) => !file.endsWith('.map') && !file.endsWith('.tsbuildinfo') && !file.includes('/dist/front/') });
 await writeFile(path.join(destination, 'RELEASE-NOT-APPROVED.txt'), [
   'Qualification bundle only. Do not promote or assign app.enki.now.',

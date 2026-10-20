@@ -11,7 +11,7 @@ const highlightedContainerStyle = {
   background: canvasTheme.background.colors.highlight,
   border: `1px solid ${canvasTheme.border.color.highlighted}`,
   borderRadius: canvasTheme.border.radius.md,
-  padding: '24px 48px',
+  padding: '24px 16px',
 } as React.CSSProperties;
 
 export const HighlightedContainer = ({

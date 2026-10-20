@@ -67,7 +67,7 @@ export const SendApprovedAccessDomainValidation = ({
       <HighlightedContainer>
         <Img
           src={workspaceLogo ?? DEFAULT_WORKSPACE_LOGO}
-          width={40}
+          width={workspaceLogo ? 40 : 120}
           height={40}
           alt={workspace.name ?? i18n._('Workspace logo')}
         />
@@ -80,7 +80,7 @@ export const SendApprovedAccessDomainValidation = ({
 };
 
 SendApprovedAccessDomainValidation.PreviewProps = {
-  link: 'https://app.twenty.com/validate-domain',
+  link: 'https://app.enki.now/validate-domain',
   domain: 'example.com',
   workspace: {
     name: 'Acme Inc.',
@@ -91,7 +91,7 @@ SendApprovedAccessDomainValidation.PreviewProps = {
     firstName: 'John',
     lastName: 'Doe',
   },
-  serverUrl: 'https://app.twenty.com',
+  serverUrl: 'https://app.enki.now',
   locale: 'en',
 };
 

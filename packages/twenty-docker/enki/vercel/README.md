@@ -12,6 +12,8 @@ The official Twenty image and Node dependency stage are pinned by digest. Build 
 
 Build the frontend with `node packages/twenty-docker/enki/scripts/build-frontend.mjs` from the source checkout. It extracts and compiles Lingui catalogs before Vite: production macros remove fallback text, so a Vite-only build can expose translation IDs to customers. Catalog regeneration is a build artifact; do not commit unrelated generated catalog changes. Hashed public assets under `/assets/` use immutable browser/CDN caching; HTML remains uncached because it includes workspace configuration.
 
+Build branded transactional emails with `node packages/twenty-docker/enki/scripts/build-emails.mjs`. The bundle copies the resulting `twenty-emails/dist` into both web and worker images. Keep the public PNG logo available at `/brand/enki-email-logo.png` for email clients that do not support SVG. Verify delivered HTML and plain text with the provider sink before sending real access links.
+
 ## Durable business jobs
 
 BullMQ remains the job store and preserves native processors, priorities, progress, retries and delays. A durable job is committed before a Vercel Queues wake notification containing only its queue name. Immediate jobs normalize BullMQ's absent delay to zero. Workers fetch for at most 30 seconds, await active work and schedule another notification if necessary. Recovery scans every five minutes for waiting, prioritized, due delayed and abandoned active work.

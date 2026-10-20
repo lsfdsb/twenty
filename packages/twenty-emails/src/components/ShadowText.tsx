@@ -1,10 +1,10 @@
-import { type JSX } from 'react';
+import { type ReactNode } from 'react';
 import { Text } from 'react-email';
 
 import { canvasTheme } from 'src/common-style';
 
 type ShadowTextProps = {
-  children: JSX.Element | JSX.Element[] | string;
+  children: ReactNode;
 };
 
 const shadowTextStyle = {

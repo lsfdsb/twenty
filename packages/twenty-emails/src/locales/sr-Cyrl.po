@@ -80,8 +80,8 @@ msgstr ""
 
 #. js-lingui-explicit-id
 #: src/emails/password-update-notify.email.tsx
-msgid "Connect to Twenty"
-msgstr "Повежите се са Twenty"
+msgid "Connect to Enki"
+msgstr "Повежите се са Enki"
 
 #. js-lingui-explicit-id
 #: src/emails/password-update-notify.email.tsx
@@ -144,8 +144,8 @@ msgstr "Ако ово нисте били ви, обратите се админ
 
 #. js-lingui-explicit-id
 #: src/emails/billing-trial-converting.email.tsx
-msgid "If Twenty is working for you, you're all set — there's nothing to do. If it's not the right fit, you can cancel in one click before then and you won't be charged."
-msgstr "Ако вам Twenty одговара, све је спремно — не морате ништа да радите. Ако ипак није прави избор, можете отказати једним кликом пре тог датума и нећете бити терећени."
+msgid "If Enki is working for you, you're all set — there's nothing to do. If it's not the right fit, you can cancel in one click before then and you won't be charged."
+msgstr "Ако вам Enki одговара, све је спремно — не морате ништа да радите. Ако ипак није прави избор, можете отказати једним кликом пре тог датума и нећете бити терећени."
 
 #. js-lingui-explicit-id
 #: src/emails/two-factor-authentication-recovery-code-issued.email.tsx
@@ -169,8 +169,8 @@ msgstr ""
 
 #. js-lingui-explicit-id
 #: src/emails/clean-suspended-workspace.email.tsx
-msgid "If you'd ever like to give Twenty another try, you can start a fresh workspace in minutes — we'd love to have you back."
-msgstr "Ако икада пожелите да Twenty дате још једну шансу, можете за неколико минута покренути нови радни простор — радо бисмо вас поново видели."
+msgid "If you'd ever like to give Enki another try, you can start a fresh workspace in minutes — we'd love to have you back."
+msgstr "Ако икада пожелите да Enki дате још једну шансу, можете за неколико минута покренути нови радни простор — радо бисмо вас поново видели."
 
 #. js-lingui-explicit-id
 #: src/emails/server-admin-access-changed.email.tsx
@@ -178,7 +178,7 @@ msgid "Impersonation: {impersonateStatus}"
 msgstr "Имитација: {impersonateStatus}"
 
 #. js-lingui-explicit-id
-#: src/components/WhatIsTwenty.tsx
+#: src/components/WhatIsEnki.tsx
 msgid "It's a CRM, a software to help businesses manage their customer data and relationships efficiently."
 msgstr "То је CRM, софтвер који помаже компанијама да ефикасно управљају подацима о клијентима и њиховим односима."
 
@@ -189,8 +189,8 @@ msgstr "Његови подаци су уклоњени и више се не м
 
 #. js-lingui-explicit-id
 #: src/emails/send-invite-link.email.tsx
-msgid "Join your team on Twenty"
-msgstr "Придружите се свом тиму на Twenty"
+msgid "Join your team on Enki"
+msgstr "Придружите се свом тиму на Enki"
 
 #. js-lingui-explicit-id
 #: src/emails/billing-subscription-renewing.email.tsx
@@ -225,8 +225,8 @@ msgstr "Поново активирајте радни простор"
 
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
-msgid "Read Twenty's user guide"
-msgstr "Прочитајте Twenty корисничко упутство"
+msgid "Read Enki's user guide"
+msgstr "Прочитајте Enki корисничко упутство"
 
 #. js-lingui-explicit-id
 #: src/emails/password-reset-link.email.tsx
@@ -275,8 +275,8 @@ msgstr "Тест имејл"
 
 #. js-lingui-explicit-id
 #: src/emails/send-email-verification-link.email.tsx
-msgid "Thanks for registering for an account on Twenty! Before we get started, we just need to confirm that this is you. Click below to verify your email address."
-msgstr "Хвала што сте регистровали налог на Twenty! Пре него што почнемо, само треба да потврдимо да сте то ви. Кликните испод да бисте верификовали своју имејл адресу."
+msgid "Thanks for registering for an account on Enki! Before we get started, we just need to confirm that this is you. Click below to verify your email address."
+msgstr "Хвала што сте регистровали налог на Enki! Пре него што почнемо, само треба да потврдимо да сте то ви. Кликните испод да бисте верификовали своју имејл адресу."
 
 #. js-lingui-explicit-id
 #: src/emails/two-factor-authentication-recovery-code-issued.email.tsx
@@ -300,18 +300,18 @@ msgstr "Да бисте задржали свој радни простор и �
 
 #. js-lingui-explicit-id
 #: src/components/BaseHead.tsx
-msgid "Twenty email"
-msgstr "Twenty имејл"
+msgid "Enki email"
+msgstr "Enki имејл"
 
 #. js-lingui-explicit-id
 #: src/components/Logo.tsx
-msgid "Twenty logo"
-msgstr "Twenty логотип"
+msgid "Enki logo"
+msgstr "Enki логотип"
 
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
-msgid "Twenty.com, Public Benefit Corporation"
-msgstr "Twenty.com, јавна корпорација"
+msgid "Enki.com, Public Benefit Corporation"
+msgstr "Enki.com, јавна корпорација"
 
 #. js-lingui-explicit-id
 #: src/emails/two-factor-authentication-recovery-code-issued.email.tsx
@@ -341,18 +341,18 @@ msgstr "Потврдите е-адресу"
 
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
-msgid "Visit Twenty's developer documentation"
-msgstr "Посетите Twenty документацију за програмере"
+msgid "Visit Enki's developer documentation"
+msgstr "Посетите Enki документацију за програмере"
 
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
-msgid "Visit Twenty's GitHub repository"
-msgstr "Посетите Twenty репозиторијум на GitHub-у"
+msgid "Visit Enki's GitHub repository"
+msgstr "Посетите Enki репозиторијум на GitHub-у"
 
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
-msgid "Visit Twenty's website"
-msgstr "Посетите Twenty вебсајт"
+msgid "Visit Enki's website"
+msgstr "Посетите Enki вебсајт"
 
 #. js-lingui-explicit-id
 #: src/emails/billing-trial-converting.email.tsx
@@ -361,8 +361,8 @@ msgstr "Не волимо неочекиване наплате, зато вам
 
 #. js-lingui-explicit-id
 #: src/emails/send-email-verification-link.email.tsx
-msgid "We received a request to change the email address associated with your Twenty account. Click below to confirm this change."
-msgstr "Примили смо захтев за промену имејл адресе повезане са вашим Twenty налогом. Кликните испод да бисте потврдили ову промену."
+msgid "We received a request to change the email address associated with your Enki account. Click below to confirm this change."
+msgstr "Примили смо захтев за промену имејл адресе повезане са вашим Enki налогом. Кликните испод да бисте потврдили ову промену."
 
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
@@ -370,9 +370,9 @@ msgid "Website"
 msgstr "Вебсајт"
 
 #. js-lingui-explicit-id
-#: src/components/WhatIsTwenty.tsx
-msgid "What is Twenty?"
-msgstr "Шта је Twenty?"
+#: src/components/WhatIsEnki.tsx
+msgid "What is Enki?"
+msgstr "Шта је Enki?"
 
 #. js-lingui-explicit-id
 #: src/emails/send-invite-link.email.tsx

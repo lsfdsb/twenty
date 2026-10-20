@@ -80,8 +80,8 @@ msgstr ""
 
 #. js-lingui-explicit-id
 #: src/emails/password-update-notify.email.tsx
-msgid "Connect to Twenty"
-msgstr "Verbinden met Twenty"
+msgid "Connect to Enki"
+msgstr "Verbinden met Enki"
 
 #. js-lingui-explicit-id
 #: src/emails/password-update-notify.email.tsx
@@ -144,8 +144,8 @@ msgstr "Als jij dit niet was, neem dan contact op met je werkruimtebeheerder en 
 
 #. js-lingui-explicit-id
 #: src/emails/billing-trial-converting.email.tsx
-msgid "If Twenty is working for you, you're all set — there's nothing to do. If it's not the right fit, you can cancel in one click before then and you won't be charged."
-msgstr "Als Twenty goed voor u werkt, bent u helemaal klaar — u hoeft niets te doen. Als het toch niet de juiste keuze is, kunt u het voor die tijd met één klik opzeggen en wordt er niets in rekening gebracht."
+msgid "If Enki is working for you, you're all set — there's nothing to do. If it's not the right fit, you can cancel in one click before then and you won't be charged."
+msgstr "Als Enki goed voor u werkt, bent u helemaal klaar — u hoeft niets te doen. Als het toch niet de juiste keuze is, kunt u het voor die tijd met één klik opzeggen en wordt er niets in rekening gebracht."
 
 #. js-lingui-explicit-id
 #: src/emails/two-factor-authentication-recovery-code-issued.email.tsx
@@ -169,8 +169,8 @@ msgstr "Als u niets doet, pauzeren we uw werkruimte en bewaren we uw gegevens {d
 
 #. js-lingui-explicit-id
 #: src/emails/clean-suspended-workspace.email.tsx
-msgid "If you'd ever like to give Twenty another try, you can start a fresh workspace in minutes — we'd love to have you back."
-msgstr "Als u Twenty ooit nog een kans wilt geven, kunt u binnen enkele minuten een nieuwe werkruimte starten — we zien u graag terug."
+msgid "If you'd ever like to give Enki another try, you can start a fresh workspace in minutes — we'd love to have you back."
+msgstr "Als u Enki ooit nog een kans wilt geven, kunt u binnen enkele minuten een nieuwe werkruimte starten — we zien u graag terug."
 
 #. js-lingui-explicit-id
 #: src/emails/server-admin-access-changed.email.tsx
@@ -178,7 +178,7 @@ msgid "Impersonation: {impersonateStatus}"
 msgstr "Impersonatie: {impersonateStatus}"
 
 #. js-lingui-explicit-id
-#: src/components/WhatIsTwenty.tsx
+#: src/components/WhatIsEnki.tsx
 msgid "It's a CRM, a software to help businesses manage their customer data and relationships efficiently."
 msgstr "Het is een CRM, een software om bedrijven te helpen hun klantgegevens en relaties efficiënt te beheren."
 
@@ -189,8 +189,8 @@ msgstr "De gegevens zijn verwijderd en kunnen niet meer worden hersteld."
 
 #. js-lingui-explicit-id
 #: src/emails/send-invite-link.email.tsx
-msgid "Join your team on Twenty"
-msgstr "Sluit je aan bij je team op Twenty"
+msgid "Join your team on Enki"
+msgstr "Sluit je aan bij je team op Enki"
 
 #. js-lingui-explicit-id
 #: src/emails/billing-subscription-renewing.email.tsx
@@ -225,8 +225,8 @@ msgstr "Werkruimte opnieuw activeren"
 
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
-msgid "Read Twenty's user guide"
-msgstr "Lees de gebruikershandleiding van Twenty"
+msgid "Read Enki's user guide"
+msgstr "Lees de gebruikershandleiding van Enki"
 
 #. js-lingui-explicit-id
 #: src/emails/password-reset-link.email.tsx
@@ -275,8 +275,8 @@ msgstr "Test e-mail"
 
 #. js-lingui-explicit-id
 #: src/emails/send-email-verification-link.email.tsx
-msgid "Thanks for registering for an account on Twenty! Before we get started, we just need to confirm that this is you. Click below to verify your email address."
-msgstr "Bedankt voor uw registratie voor een account op Twenty! Voordat we beginnen, moeten we gewoon bevestigen dat dit u bent. Klik hieronder om uw e-mailadres te verifiëren."
+msgid "Thanks for registering for an account on Enki! Before we get started, we just need to confirm that this is you. Click below to verify your email address."
+msgstr "Bedankt voor uw registratie voor een account op Enki! Voordat we beginnen, moeten we gewoon bevestigen dat dit u bent. Klik hieronder om uw e-mailadres te verifiëren."
 
 #. js-lingui-explicit-id
 #: src/emails/two-factor-authentication-recovery-code-issued.email.tsx
@@ -300,18 +300,18 @@ msgstr "Voeg een betaalmethode toe en kies een abonnement om uw werkruimte en al
 
 #. js-lingui-explicit-id
 #: src/components/BaseHead.tsx
-msgid "Twenty email"
-msgstr "E-mail van Twenty"
+msgid "Enki email"
+msgstr "E-mail van Enki"
 
 #. js-lingui-explicit-id
 #: src/components/Logo.tsx
-msgid "Twenty logo"
-msgstr "Twenty-logo"
+msgid "Enki logo"
+msgstr "Enki-logo"
 
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
-msgid "Twenty.com, Public Benefit Corporation"
-msgstr "Twenty.com, Public Benefit Corporation"
+msgid "Enki.com, Public Benefit Corporation"
+msgstr "Enki.com, Public Benefit Corporation"
 
 #. js-lingui-explicit-id
 #: src/emails/two-factor-authentication-recovery-code-issued.email.tsx
@@ -341,18 +341,18 @@ msgstr "E-mail verifiëren"
 
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
-msgid "Visit Twenty's developer documentation"
-msgstr "Bekijk de ontwikkelaarsdocumentatie van Twenty"
+msgid "Visit Enki's developer documentation"
+msgstr "Bekijk de ontwikkelaarsdocumentatie van Enki"
 
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
-msgid "Visit Twenty's GitHub repository"
-msgstr "Bezoek de GitHub-repository van Twenty"
+msgid "Visit Enki's GitHub repository"
+msgstr "Bezoek de GitHub-repository van Enki"
 
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
-msgid "Visit Twenty's website"
-msgstr "Bezoek de website van Twenty"
+msgid "Visit Enki's website"
+msgstr "Bezoek de website van Enki"
 
 #. js-lingui-explicit-id
 #: src/emails/billing-trial-converting.email.tsx
@@ -361,8 +361,8 @@ msgstr "We houden niet van onverwachte kosten, dus hierbij een vriendelijk seint
 
 #. js-lingui-explicit-id
 #: src/emails/send-email-verification-link.email.tsx
-msgid "We received a request to change the email address associated with your Twenty account. Click below to confirm this change."
-msgstr "We hebben een verzoek ontvangen om het e-mailadres dat aan uw Twenty-account is gekoppeld te wijzigen. Klik hieronder om deze wijziging te bevestigen."
+msgid "We received a request to change the email address associated with your Enki account. Click below to confirm this change."
+msgstr "We hebben een verzoek ontvangen om het e-mailadres dat aan uw Enki-account is gekoppeld te wijzigen. Klik hieronder om deze wijziging te bevestigen."
 
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
@@ -370,9 +370,9 @@ msgid "Website"
 msgstr "Website"
 
 #. js-lingui-explicit-id
-#: src/components/WhatIsTwenty.tsx
-msgid "What is Twenty?"
-msgstr "Wat is Twenty?"
+#: src/components/WhatIsEnki.tsx
+msgid "What is Enki?"
+msgstr "Wat is Enki?"
 
 #. js-lingui-explicit-id
 #: src/emails/send-invite-link.email.tsx
