@@ -2,7 +2,7 @@ import { isOnOnboardingVerifyPath } from '@/auth/utils/isOnOnboardingVerifyPath'
 import { OnboardingPulsingLogo } from '@/onboarding/components/OnboardingPulsingLogo';
 import { styled } from '@linaria/react';
 import { themeCssVariables } from 'twenty-ui/theme';
-import { t } from '@lingui/core/macro';
+import { i18n } from '@lingui/core';
 import { useEffect, useState } from 'react';
 
 const StyledContainer = styled.div`
@@ -54,12 +54,14 @@ export const OnboardingPageLoader = () => {
       )}
       <StyledMessage role="status" aria-live="polite">
         {isTakingLonger
-          ? t`Está demorando um pouco mais. Verifique sua conexão ou tente recarregar.`
-          : t`Preparando seu espaço…`}
+          ? i18n._(
+              'Está demorando um pouco mais. Verifique sua conexão ou tente recarregar.',
+            )
+          : i18n._('Preparando seu espaço…')}
       </StyledMessage>
       {isTakingLonger && (
         <StyledReload onClick={() => window.location.reload()}>
-          {t`Recarregar`}
+          {i18n._('Recarregar')}
         </StyledReload>
       )}
     </StyledContainer>

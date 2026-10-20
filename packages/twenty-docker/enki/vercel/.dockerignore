@@ -5,6 +5,8 @@
 !frontend/**
 !backend/
 !backend/**
+!emails/
+!emails/**
 !runtime/
 !runtime/**
 runtime/node_modules/

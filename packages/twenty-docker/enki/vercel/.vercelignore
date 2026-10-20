@@ -5,6 +5,7 @@
 !.dockerignore
 !frontend
 !backend
+!emails
 !runtime
 !gateway
 **/node_modules
