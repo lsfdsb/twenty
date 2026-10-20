@@ -28,3 +28,14 @@ No arbitrary indexes, global memory settings, instance size upgrades or connecti
 - `docs.enki.now`: DNS/project ownership verified and HTTPS 200.
 
 App promotion and public verification are recorded after completion. Rollback target before this release: `dpl_8zTieUTq1sqbVdHzw9LfNpCafM5Q` (static delivery release).
+
+## Published and checked
+
+- App source commit: `de65ab1e`.
+- App deployment: `dpl_ZiGG5sF3UVpdjfkoTUxjEnsvW85S`, `https://enki-24mg5xm0t-enki-team.vercel.app`; promoted and explicitly assigned to `https://app.enki.now`.
+- Docs deployment: `dpl_GiwiJdreQ16QP4ZUG4eYF4M1z431`, `https://enki-docs-gxx0moxbp-enki-team.vercel.app`; live at `https://docs.enki.now`.
+- Candidate checked using authenticated Vercel CLI requests; no new temporary public bypass links created. Health 200, root 200/no-store, anonymous companies API 403, entry SHA-256 matches release.
+- Public app: 257 initial/changed deferred/brand files matched the local release byte-for-byte; health 200, anonymous companies API 403, missing asset 404. Cold CDN requests are not compared with the previous warm-cache benchmark.
+- Public login renders in Portuguese on desktop and mobile; email step advances to the password form without errors. No password was entered or changed. Authenticated CRM operations were not manually re-tested with the real administrator's session.
+- Mobile DOM width/scroll width both 390 px at 844 px height; no horizontal overflow on login. Browser warning/error capture empty. Deployment error logs for the sampled last 10 minutes empty.
+- All 32 public documentation guides returned 200; legacy links resolved, private environment/project paths and missing pages returned 404. Search, desktop/mobile layouts and navigation verified.
