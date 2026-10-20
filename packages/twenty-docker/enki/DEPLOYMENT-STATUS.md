@@ -28,6 +28,6 @@ On-demand processing uses at-least-once notifications, not exactly-once executio
 
 ## Release procedure
 
-Publish `enki/production-2.49` with corresponding source, set the final SERVER_URL, deploy without ENKI_QUEUE_PIN_CURRENT and without the migration handler, validate the final deployment, then move app.enki.now while retaining the old deployment as a rollback target. Verify public HTTPS, login, desktop/mobile, queue recovery, maintenance and runtime logs after promotion.
+Publish `enki/production-2.49` with corresponding source, set the final SERVER_URL, deploy without the migration handler, validate the final deployment, then move app.enki.now while retaining the old deployment as a rollback target. Push notifications remain deployment-scoped; durable Redis jobs are recovered on the current deployment. Verify public HTTPS, login, desktop/mobile, queue recovery, maintenance and runtime logs after promotion.
 
 Keep environment files, bootstrap passwords, private logs, SQL backups and tokens outside Git and the deployment bundle. No temporary test identity should remain at handoff.

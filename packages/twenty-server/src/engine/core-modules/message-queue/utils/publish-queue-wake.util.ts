@@ -12,12 +12,8 @@ export const publishQueueWake = async (
   const queue = new QueueClient({
     region: 'gru1',
     token: getVercelRequestToken(),
-    // Production wake-ups must survive a subsequent deployment.
-    deploymentId:
-      process.env.VERCEL_ENV === 'production' &&
-      process.env.ENKI_QUEUE_PIN_CURRENT !== 'true'
-        ? null
-        : undefined,
+    // Push delivery targets this deployment. BullMQ retains the durable job;
+    // scheduled recovery republishes pending work on the current deployment.
   });
   const delaySeconds = Math.max(
     0,

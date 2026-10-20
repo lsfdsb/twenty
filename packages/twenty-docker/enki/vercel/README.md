@@ -16,7 +16,7 @@ BullMQ remains the job store and preserves native processors, priorities, progre
 
 Notifications are delivered at least once; native business operations still need their existing idempotency controls. Container and callback requests are bounded at 800 seconds. Work lasting longer, interrupted external side effects and workloads beyond the tested CRM/email flows require separate qualification.
 
-Production notifications follow the current deployment. `ENKI_QUEUE_PIN_CURRENT=true` is reserved for protected qualification candidates and must not be present in the final release. Redis jobs remain recoverable after a deployment changes. Retire failed qualification deployments after the new worker has drained their durable jobs so obsolete pinned callbacks do not keep retrying.
+Push notifications use the SDK's default deployment pinning. Redis holds the durable jobs independently of the notification deployment. Recovery on the current production deployment republishes pending work every five minutes, including work left by a previous release; delayed/retry timestamps remain in BullMQ. Deploymentless publication was accepted but did not invoke a push consumer in qualification, so it is not used. Retire failed qualification deployments after the new worker has drained their durable jobs so obsolete callbacks do not keep retrying.
 
 ## Native maintenance without permanent polling
 

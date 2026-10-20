@@ -21,7 +21,6 @@ export default async function recover(request, response) {
   const redis = new Redis(redisUrl, { maxRetriesPerRequest: 1, commandTimeout: 10_000 });
   const queue = new QueueClient({
     region: 'gru1',
-    deploymentId: process.env.ENKI_QUEUE_PIN_CURRENT === 'true' ? undefined : null,
   });
 
   try {
