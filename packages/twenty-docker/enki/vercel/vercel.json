@@ -6,9 +6,8 @@
   "services": {
     "assets": {
       "root": "frontend/",
-      "framework": null,
-      "installCommand": "",
-      "buildCommand": "",
+      "installCommand": "true",
+      "buildCommand": "true",
       "outputDirectory": "."
     },
     "web": {
