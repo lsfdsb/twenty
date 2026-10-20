@@ -1,6 +1,19 @@
 # Enki release status — 2026-10-20
 
-Published at https://app.enki.now on 2026-10-20. The production deployment is `dpl_6Qh31Fjgi5EZD1XRsGyXJLTN5yJu`, built from application source commit `1709d676`. Native authentication, CRM writes/relations, S3 upload/read, bootstrap artifact checksums, SMTP, invitations, password-reset delivery and public desktop/mobile browser checks passed. The native admin health API reports database, Redis, worker, connected-account infrastructure and application as operational; no external mailbox has been connected.
+Published at https://app.enki.now on 2026-10-20. The current production deployment is `dpl_78jjEcZehPB8BkKqy5G9kgNxQZ3t`, built from application source commit `d0108162`. The preceding release, `dpl_6Qh31Fjgi5EZD1XRsGyXJLTN5yJu` (`1709d676`), remains the rollback target. Native authentication, CRM writes/relations, S3 upload/read, bootstrap artifact checksums, SMTP, invitations, password-reset delivery and public desktop/mobile browser checks passed during the initial release. Its native admin health check reported database, Redis, worker, connected-account infrastructure and application as operational; no external mailbox has been connected.
+
+## Access and email follow-up
+
+The follow-up fixes expired password-link handling, visible startup progress and an initial locale-activation race. It applies Enki's shared logo, palette, buttons and footer to all 13 transactional email templates, preserving actual workspace and sender names. The five-minute, single-use password-reset policy is unchanged. An expired or rejected link now offers a new-link form rather than redirecting to an unrelated permission warning.
+
+- Fourteen targeted frontend tests passed, including first render with no active locale and slow-loading recovery; frontend types and changed-file lint passed.
+- Thirty-six backend cache/routing checks passed. Only content-hashed public frontend assets receive immutable caching; HTML remains `no-store`.
+- Twenty-nine email rendering/branding checks passed across English and Brazilian Portuguese. The native worker delivered a branded password email to the provider test sink; its link was validated, consumed by the disposable test identity and then rejected on reuse. The temporary identity was removed. The real administrator's password was not changed.
+- The email compilation output is explicitly included in both deployment allowlists and runtime images. The backend and email artifacts in the final candidate match the artifacts qualified by the delivery and password-lifecycle checks.
+- Candidate `dpl_2AXZjA7UZk3C2QQx5eYNP3CAM98Z` was temporarily published, then rolled back after public cold-load verification exposed translation before locale activation. Regression coverage now reproduces that state; the final candidate passed initial loading without that console error.
+- After final promotion and explicit domain assignment, public root and health returned 200, the HTML referenced the expected `index-IDqoCpIJ.js`, the email logo matched its source SHA-256, and unauthenticated CRM access returned 403.
+- Public login and expired-link recovery rendered at 1280-pixel desktop and 390 × 844 mobile viewport widths. Browser checks showed no console errors in these flows and no horizontal overflow in the mobile login. These are viewport checks, not physical-device Safari certification.
+- Screenshots and redacted operational evidence are retained outside the source repository. Temporary candidate share links are revoked after verification. The administrator's fresh access email is requested only after final publication checks; provider delivery is recorded privately.
 
 ## Scope and resources
 
