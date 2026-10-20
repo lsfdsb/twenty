@@ -106,6 +106,7 @@ const createWorkspaceAppRouter = ({
 
   return createBrowserRouter([
     {
+      hydrateFallbackElement: <OnboardingPageLoader />,
       element: (
         <WorkspaceRouteObjectsProvider routeObjects={workspaceRouteObjects} />
       ),
@@ -138,7 +139,7 @@ const createWorkspaceAppRouter = ({
                 {
                   path: AppPath.ResetPassword,
                   element: (
-                    <LazyRoute fallback={null}>
+                    <LazyRoute fallback={<OnboardingPageLoader />}>
                       <PasswordReset />
                     </LazyRoute>
                   ),
@@ -158,7 +159,6 @@ const createWorkspaceAppRouter = ({
               children: [
                 {
                   element: <OnboardingTransitionOutlet />,
-                  loader: preloadOnboardingPages,
                   children: [
                     {
                       path: AppPath.SignInUp,

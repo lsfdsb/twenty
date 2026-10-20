@@ -30,7 +30,11 @@ const PasswordReset = lazy(() =>
 const createRootAppRouter = () =>
   createBrowserRouter(
     createRoutesFromElements(
-      <Route element={<RootAppProviders />} loader={async () => null}>
+      <Route
+        element={<RootAppProviders />}
+        loader={async () => null}
+        hydrateFallbackElement={<OnboardingPageLoader />}
+      >
         <Route element={<BlankLayout />}>
           <Route element={<OnboardingTransitionOutlet />}>
             <Route
@@ -56,7 +60,7 @@ const createRootAppRouter = () =>
           <Route
             path={AppPath.ResetPassword}
             element={
-              <LazyRoute fallback={null}>
+              <LazyRoute fallback={<OnboardingPageLoader />}>
                 <PasswordReset />
               </LazyRoute>
             }

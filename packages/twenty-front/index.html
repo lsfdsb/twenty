@@ -69,7 +69,26 @@
         --theme-light-background-secondary: #f8f7e9;
       }
 
+      .enki-boot {
+        box-sizing: border-box;
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 24px;
+        color: #777268;
+        font: 16px/1.6 system-ui, sans-serif;
+        text-align: center;
+      }
+
+      .enki-boot img { width: 128px; height: 64px; object-fit: contain; margin-bottom: 24px; }
+      .enki-boot p { margin: 0; }
+      .enki-boot a { color: inherit; padding: 12px 20px; margin-top: 24px; text-underline-offset: 4px; }
+
       @media (prefers-color-scheme: dark) {
+        .enki-boot { color: #c1bba9; }
+        .enki-boot img { filter: invert(1); }
         html,
         body {
           background-color: var(--theme-dark-background-secondary);
@@ -86,7 +105,13 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="enki-boot">
+        <img src="/brand/enki-logo.svg" alt="Enki" />
+        <p role="status">Preparando seu espaço…</p>
+        <a href="">Recarregar</a>
+      </div>
+    </div>
     <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

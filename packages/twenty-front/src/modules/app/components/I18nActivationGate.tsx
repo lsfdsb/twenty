@@ -1,4 +1,3 @@
-import { isOnOnboardingTransitionPath } from '@/auth/utils/isOnOnboardingTransitionPath';
 import { OnboardingPageLoader } from '@/onboarding/components/OnboardingPageLoader';
 import { i18n } from '@lingui/core';
 import { isNonEmptyString } from '@sniptt/guards';
@@ -27,9 +26,7 @@ export const I18nActivationGate = ({ children }: I18nActivationGateProps) => {
   }, []);
 
   if (!isLocaleActivated) {
-    return isOnOnboardingTransitionPath(window.location.pathname) ? (
-      <OnboardingPageLoader />
-    ) : null;
+    return <OnboardingPageLoader />;
   }
 
   return <>{children}</>;

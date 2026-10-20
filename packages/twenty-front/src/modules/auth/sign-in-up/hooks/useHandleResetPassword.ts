@@ -26,7 +26,7 @@ export const useHandleResetPassword = () => {
       return async () => {
         if (!email) {
           enqueueToast({ status: 'error', children: t`Invalid email` });
-          return;
+          return false;
         }
 
         if (!isCaptchaReady) {
@@ -34,7 +34,7 @@ export const useHandleResetPassword = () => {
             status: 'error',
             children: t`Captcha (anti-bot check) is still loading, try again`,
           });
-          return;
+          return false;
         }
 
         const captchaToken = readCaptchaToken();
@@ -51,12 +51,14 @@ export const useHandleResetPassword = () => {
               status: 'success',
               children: t`If this email is registered, a password reset link has been sent`,
             });
+            return true;
           } else {
             enqueueToast({ status: 'error', children: t`An error occurred.` });
           }
         } catch (error) {
           enqueueToast(getToastOptionsFromError({ error }));
         }
+        return false;
       };
     },
     [

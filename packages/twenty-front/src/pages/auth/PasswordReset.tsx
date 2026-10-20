@@ -1,5 +1,6 @@
 import { SkeletonLine } from '@/ui/feedback/skeleton/components/SkeletonLine';
 import { Logo } from '@/auth/components/Logo';
+import { PasswordResetRecovery } from '@/auth/components/PasswordResetRecovery';
 import { StyledAuthContent } from '@/auth/components/StyledAuthContent';
 import { StyledOnboardingContentContainer } from '@/auth/components/StyledOnboardingContentContainer';
 import { Title } from '@/auth/components/Title';
@@ -14,6 +15,7 @@ import { useCaptcha } from '@/client-config/hooks/useCaptcha';
 import { useIsCurrentLocationOnAWorkspace } from '@/domain-manager/hooks/useIsCurrentLocationOnAWorkspace';
 import { useRedirect } from '@/domain-manager/hooks/useRedirect';
 import { getToastOptionsFromError } from '@/error-handler/utils/getToastOptionsFromError';
+import { OnboardingPageLoader } from '@/onboarding/components/OnboardingPageLoader';
 import { TextInput } from '@/ui/input/components/TextInput';
 import { useAtomStateValue } from '@/ui/utilities/state/jotai/hooks/useAtomStateValue';
 import { useSetAtomState } from '@/ui/utilities/state/jotai/hooks/useSetAtomState';
@@ -23,9 +25,9 @@ import { styled } from '@linaria/react';
 import { i18n } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
-import { isNonEmptyString } from '@sniptt/guards';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { CombinedGraphQLErrors } from '@apollo/client/errors';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { SKELETON_HEIGHT_SIZES } from 'twenty-ui/primitives/feedback';
 import { useParams } from 'react-router-dom';
@@ -42,6 +44,12 @@ import { useNavigateApp } from '~/hooks/useNavigateApp';
 import { logError } from '~/utils/logError';
 
 const passwordLengthMessage = msg`Password must be between 8 and 50 characters`;
+
+const isInvalidResetTokenError = (error: unknown) =>
+  CombinedGraphQLErrors.is(error) &&
+  error.errors.some(
+    (graphQLError) => graphQLError.message === 'Token is invalid',
+  );
 
 const validationSchema = z
   .object({
@@ -91,10 +99,8 @@ export const PasswordReset = () => {
   const navigate = useNavigateApp();
   const { redirect } = useRedirect();
 
-  const [email, setEmail] = useState('');
-  const [isTokenValid, setIsTokenValid] = useState(false);
-  const [isTargetUserPasswordSet, setIsTargetUserPasswordSet] = useState(false);
   const passwordResetToken = useParams().passwordResetToken;
+  const [isResetTokenRejected, setIsResetTokenRejected] = useState(false);
 
   const isLogged = useIsLogged();
 
@@ -107,35 +113,21 @@ export const PasswordReset = () => {
     resolver: zodResolver(validationSchema),
   });
 
-  const { data: tokenValidationData, error: tokenValidationError } = useQuery(
-    ValidatePasswordResetTokenDocument,
-    {
-      variables: {
-        token: passwordResetToken ?? '',
-      },
-      skip: !passwordResetToken || isTokenValid,
+  const {
+    data: tokenValidationData,
+    error: tokenValidationError,
+    refetch,
+  } = useQuery(ValidatePasswordResetTokenDocument, {
+    variables: {
+      token: passwordResetToken ?? '',
     },
-  );
+    skip: !passwordResetToken,
+    fetchPolicy: 'network-only',
+  });
 
-  useEffect(() => {
-    if (tokenValidationError) {
-      enqueueToast(getToastOptionsFromError({ error: tokenValidationError }));
-      navigate(AppPath.Index);
-    }
-  }, [tokenValidationError, enqueueToast, navigate]);
-
-  useEffect(() => {
-    if (tokenValidationData) {
-      setIsTokenValid(true);
-      const validationResult = tokenValidationData?.validatePasswordResetToken;
-      if (isNonEmptyString(validationResult?.email)) {
-        setEmail(validationResult.email);
-      }
-      if (validationResult?.hasPassword) {
-        setIsTargetUserPasswordSet(validationResult.hasPassword);
-      }
-    }
-  }, [tokenValidationData]);
+  const validationResult = tokenValidationData?.validatePasswordResetToken;
+  const email = validationResult?.email ?? '';
+  const isTargetUserPasswordSet = validationResult?.hasPassword ?? false;
 
   const [updatePasswordViaToken, { loading: isUpdatingPassword }] = useMutation(
     UpdatePasswordViaResetTokenDocument,
@@ -150,7 +142,7 @@ export const PasswordReset = () => {
     try {
       const { data } = await updatePasswordViaToken({
         variables: {
-          token: formData.passwordResetToken,
+          token: passwordResetToken ?? '',
           newPassword: formData.newPassword,
         },
       });
@@ -200,6 +192,10 @@ export const PasswordReset = () => {
 
       redirect(AppPath.Index);
     } catch (err) {
+      if (isInvalidResetTokenError(err)) {
+        setIsResetTokenRejected(true);
+        return;
+      }
       logError(err);
       enqueueToast(getToastOptionsFromError({ error: err }));
     }
@@ -208,101 +204,117 @@ export const PasswordReset = () => {
   const passwordActionLabel =
     isTargetUserPasswordSet === true ? t`Change Password` : t`Set Password`;
 
-  return (
-    isTokenValid && (
-      <StyledAuthContent>
-        <StyledMainContainer>
-          <AnimatedEaseIn>
-            <Logo
-              secondaryLogo={workspacePublicData?.logo}
-              placeholder={workspacePublicData?.displayName}
-            />
-          </AnimatedEaseIn>
-          <Title animate>{passwordActionLabel}</Title>
-          <StyledOnboardingContentContainer>
-            {!email ? (
-              <SkeletonLine
-                borderRadius="0.25rem"
-                height={SKELETON_HEIGHT_SIZES.m}
-                count={2}
-                style={{
-                  marginBottom: themeCssVariables.spacing[2],
-                }}
-                baseColor={themeCssVariables.background.quaternary}
-                highlightColor={themeCssVariables.background.secondary}
-              />
-            ) : (
-              <StyledForm onSubmit={handleSubmit(onSubmit)}>
-                <StyledFullWidthContainer>
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 800,
-                      damping: 35,
-                    }}
-                  >
-                    <StyledInputContainer>
-                      <TextInput
-                        autoFocus
-                        value={email}
-                        placeholder={t`Email`}
-                        fullWidth
-                        disabled
-                      />
-                    </StyledInputContainer>
-                  </motion.div>
-                </StyledFullWidthContainer>
-                <StyledFullWidthContainer>
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 800,
-                      damping: 35,
-                    }}
-                  >
-                    <Controller
-                      name="newPassword"
-                      control={control}
-                      render={({
-                        field: { onChange, onBlur, value },
-                        fieldState: { error },
-                      }) => (
-                        <StyledInputContainer>
-                          <TextInput
-                            autoFocus
-                            value={value}
-                            type="password"
-                            placeholder={t`New Password`}
-                            onBlur={onBlur}
-                            onChange={onChange}
-                            error={error?.message}
-                            fullWidth
-                          />
-                        </StyledInputContainer>
-                      )}
-                    />
-                  </motion.div>
-                </StyledFullWidthContainer>
+  if (tokenValidationError || !passwordResetToken || isResetTokenRejected) {
+    const isInvalidLink =
+      !passwordResetToken ||
+      isResetTokenRejected ||
+      isInvalidResetTokenError(tokenValidationError);
 
-                <StyledMainButtonContainer>
-                  <MainButton
-                    type="submit"
-                    fullWidth
-                    disabled={isUpdatingPassword}
-                    variant="outline"
-                  >
-                    {passwordActionLabel}
-                  </MainButton>
-                </StyledMainButtonContainer>
-              </StyledForm>
-            )}
-          </StyledOnboardingContentContainer>
-        </StyledMainContainer>
-      </StyledAuthContent>
-    )
+    return (
+      <PasswordResetRecovery
+        isInvalidLink={isInvalidLink}
+        onRetry={() => {
+          void refetch().catch(() => undefined);
+        }}
+      />
+    );
+  }
+
+  if (!validationResult) return <OnboardingPageLoader />;
+
+  return (
+    <StyledAuthContent>
+      <StyledMainContainer>
+        <AnimatedEaseIn>
+          <Logo
+            secondaryLogo={workspacePublicData?.logo}
+            placeholder={workspacePublicData?.displayName}
+          />
+        </AnimatedEaseIn>
+        <Title animate>{passwordActionLabel}</Title>
+        <StyledOnboardingContentContainer>
+          {!email ? (
+            <SkeletonLine
+              borderRadius="0.25rem"
+              height={SKELETON_HEIGHT_SIZES.m}
+              count={2}
+              style={{
+                marginBottom: themeCssVariables.spacing[2],
+              }}
+              baseColor={themeCssVariables.background.quaternary}
+              highlightColor={themeCssVariables.background.secondary}
+            />
+          ) : (
+            <StyledForm onSubmit={handleSubmit(onSubmit)}>
+              <StyledFullWidthContainer>
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 800,
+                    damping: 35,
+                  }}
+                >
+                  <StyledInputContainer>
+                    <TextInput
+                      autoFocus
+                      value={email}
+                      placeholder={t`Email`}
+                      fullWidth
+                      disabled
+                    />
+                  </StyledInputContainer>
+                </motion.div>
+              </StyledFullWidthContainer>
+              <StyledFullWidthContainer>
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 800,
+                    damping: 35,
+                  }}
+                >
+                  <Controller
+                    name="newPassword"
+                    control={control}
+                    render={({
+                      field: { onChange, onBlur, value },
+                      fieldState: { error },
+                    }) => (
+                      <StyledInputContainer>
+                        <TextInput
+                          autoFocus
+                          value={value}
+                          type="password"
+                          placeholder={t`New Password`}
+                          onBlur={onBlur}
+                          onChange={onChange}
+                          error={error?.message}
+                          fullWidth
+                        />
+                      </StyledInputContainer>
+                    )}
+                  />
+                </motion.div>
+              </StyledFullWidthContainer>
+
+              <StyledMainButtonContainer>
+                <MainButton
+                  type="submit"
+                  fullWidth
+                  disabled={isUpdatingPassword}
+                  variant="outline"
+                >
+                  {passwordActionLabel}
+                </MainButton>
+              </StyledMainButtonContainer>
+            </StyledForm>
+          )}
+        </StyledOnboardingContentContainer>
+      </StyledMainContainer>
+    </StyledAuthContent>
   );
 };
