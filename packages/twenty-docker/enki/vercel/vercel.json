@@ -4,6 +4,13 @@
     "gru1"
   ],
   "services": {
+    "assets": {
+      "root": "frontend/",
+      "framework": null,
+      "installCommand": "",
+      "buildCommand": "",
+      "outputDirectory": "."
+    },
     "web": {
       "root": ".",
       "entrypoint": "Dockerfile.vercel",
@@ -84,7 +91,39 @@
       }
     }
   },
+  "headers": [
+    {
+      "source": "/assets/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/brand/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ],
   "rewrites": [
+    {
+      "source": "/assets/(.*)",
+      "destination": {
+        "service": "assets"
+      }
+    },
+    {
+      "source": "/brand/(.*)",
+      "destination": {
+        "service": "assets"
+      }
+    },
     {
       "source": "/internal/maintenance/tick",
       "destination": {
